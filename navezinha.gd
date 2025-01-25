@@ -8,6 +8,5 @@ func _physics_process(delta: float) -> void:
 		velocity = direction * SPEED
 	else:
 		velocity = Vector2.ZERO
-	print(velocity)
-
+	
 	move_and_slide()
