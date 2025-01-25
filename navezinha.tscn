@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6yp80jcx3bjn"]
+
+[ext_resource type="Script" path="res://navezinha.gd" id="1_strdr"]
+
+[node name="Navezinha" type="CharacterBody2D"]
+script = ExtResource("1_strdr")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(4, 5)
+color = Color(0, 0, 1, 1)
+polygon = PackedVector2Array(-41, 20, 33, 19, -4, -52)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-11, 10, -1, -10, 10, 8)
