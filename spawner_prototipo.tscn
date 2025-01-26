@@ -4,3 +4,7 @@
 
 [node name="Spawner_prototipo" type="Node2D"]
 script = ExtResource("1_ewwoa")
+firingRate = 2.0
+direction = 90.0
+bullet_life = 1.0
+bullet_SPEED = 300.0

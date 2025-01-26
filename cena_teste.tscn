@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6bfudofjty1o"]
+
+[ext_resource type="PackedScene" uid="uid://86eunm4148n5" path="res://bala_prototipo.tscn" id="1_p25j5"]
+
+[node name="Cena_Teste" type="Node2D"]
+
+[node name="Bala_Prototipo" parent="." instance=ExtResource("1_p25j5")]
+position = Vector2(240, 100)
+bullet_life = 10.0
+direction = 0.0
+
+[node name="Bala_Prototipo2" parent="." instance=ExtResource("1_p25j5")]
+position = Vector2(500, 100)
+bullet_life = 10.0
+direction = 180.0

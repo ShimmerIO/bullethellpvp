@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://navezinha.gd" id="1_strdr"]
 
-[node name="Navezinha" type="CharacterBody2D"]
+[node name="Navezinha" type="Area2D"]
 script = ExtResource("1_strdr")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
@@ -11,4 +11,8 @@ color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(-41, 20, 33, 19, -4, -52)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-11, 10, -1, -10, 10, 8)
+position = Vector2(5.96046e-08, -6)
+scale = Vector2(2.1131, 2.20312)
+polygon = PackedVector2Array(-11, 10, 0.209857, -9.87234, 10.6211, 9.64539)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

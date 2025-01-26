@@ -6,12 +6,18 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_nj6lo"]
 radius = 5.0
 
-[node name="Bala_Prototipo" type="Area2D"]
+[node name="Bala_Prototipo" type="RigidBody2D"]
+gravity_scale = 0.0
+can_sleep = false
+freeze_mode = 1
 script = ExtResource("1_sirls")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_nj6lo")
+SPEED = 300.0
+direction = 270.0
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("1_1vt7y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nj6lo")
