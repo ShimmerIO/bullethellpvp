@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkh8d7wj6tw4x"]
+
+[ext_resource type="Script" path="res://scripts_prototipo/spawner_prototipo.gd" id="1_ewwoa"]
+
+[node name="Spawner_prototipo" type="Node2D"]
+script = ExtResource("1_ewwoa")
+firingRate = 2.0
+bullet_life = 1.0
+bullet_SPEED = 300.0

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6yp80jcx3bjn"]
+
+[ext_resource type="Script" path="res://scripts_prototipo/navezinha.gd" id="1_strdr"]
+
+[node name="Navezinha" type="Area2D" groups=["Player"]]
+script = ExtResource("1_strdr")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(4, 5)
+color = Color(0, 0, 1, 1)
+polygon = PackedVector2Array(-41, 20, 33, 19, -4, -52)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(5.96046e-08, -6)
+scale = Vector2(2.1131, 2.20312)
+polygon = PackedVector2Array(-11, 10, 0.209857, -9.87234, 10.6211, 9.64539)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="hit" from="." to="." method="_on_hit"]
