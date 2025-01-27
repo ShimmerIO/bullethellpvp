@@ -9,7 +9,6 @@ radius = 5.0
 [node name="Bala_Prototipo" type="Area2D"]
 script = ExtResource("1_sirls")
 SPEED = 300.0
-direction = 270.0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

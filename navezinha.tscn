@@ -16,3 +16,4 @@ scale = Vector2(2.1131, 2.20312)
 polygon = PackedVector2Array(-11, 10, 0.209857, -9.87234, 10.6211, 9.64539)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="hit" from="." to="." method="_on_hit"]
