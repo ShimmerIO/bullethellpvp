@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c6bfudofjty1o"]
 
+[ext_resource type="Script" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
 [ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://cenas_prototipo/navezinha.tscn" id="1_q2465"]
-[ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="2_t8krc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxtm3"]
 size = Vector2(13, 1096)
@@ -13,20 +13,6 @@ position = Vector2(766, 265)
 SPEED = 300.0
 acc = 10.0
 
-[node name="Spawner_prototipo" parent="." instance=ExtResource("2_t8krc")]
-position = Vector2(830, 0)
-_spawn_type = 1
-_stops_type = 2
-rotationSpeed = 45
-arms = 16
-skewArms = 0.3
-firingTime = 10.0
-bulletCap = 100
-firingRate = 8.0
-direction = 270.0
-bullet_life = 10.0
-bullet_SPEED = 150.0
-
 [node name="StaticBody2D" type="Area2D" parent="."]
 position = Vector2(960, 0)
 disable_mode = 1
@@ -36,16 +22,5 @@ position = Vector2(0, 538)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_xxtm3")
 
-[node name="Spawner_prototipo3" parent="." instance=ExtResource("2_t8krc")]
-position = Vector2(130, 0)
-_spawn_type = 1
-_stops_type = 2
-rotationSpeed = 45
-arms = 16
-skewArms = -0.3
-firingTime = 10.0
-bulletCap = 100
-firingRate = 8.0
-direction = 270.0
-bullet_life = 10.0
-bullet_SPEED = 150.0
+[node name="GameDirectorOneShot" type="Node" parent="."]
+script = ExtResource("1_1gkh1")

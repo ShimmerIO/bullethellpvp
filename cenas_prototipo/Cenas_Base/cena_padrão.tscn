@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://75iitu7g3g0g"]
+
+[ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="1_ycgnh"]
+[ext_resource type="Script" path="res://scripts_prototipo/centro_cena_padrões.gd" id="2_eyq1p"]
+
+[node name="Cena_Padrão" type="Node2D"]
+metadata/_edit_vertical_guides_ = [959.0]
+
+[node name="CentroCena" parent="." instance=ExtResource("1_ycgnh")]
+script = ExtResource("2_eyq1p")

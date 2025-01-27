@@ -7,6 +7,7 @@ signal hit
 @export_category("Opções nave")
 @export var SPEED = 450.0
 @export var acc:float
+@export var acc_max:float
 
 var velocity = 0
 
@@ -24,7 +25,7 @@ func _process(delta: float) -> void:
 	#move o personagem quando tu tá apertando alguma direção
 	if direction:
 		velocity += acc * delta
-		velocity = clamp(velocity, 0, 200)
+		velocity = clamp(velocity, 0, acc_max)
 		#lembra de física? isso aqui é literal S = vt, pq velocidade é direção * rapidez, e delta é tempo
 		position +=  (SPEED + velocity) * delta * direction
 		position = position.clamp(Vector2.ZERO + Vector2(19, 24) , screen_size - (Vector2(19,13)))

@@ -29,7 +29,7 @@ enum stopping_criteria{TIME, BULLETCAP, NONE}
 
 @export_category("opções BURST")
 #número de braços no spawner
-@export var arms: int = 8
+@export var arms: int
 #ângulo de skew dos braços, verificar os ângulos que tu quer antes de qualquer coisa
 @export var skewArms: float
 
@@ -56,6 +56,8 @@ var timer:float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Bala.hide()
+	$Polygon2D.hide()
 	if(isPathed):
 		position = pathToFollow.position
 	
