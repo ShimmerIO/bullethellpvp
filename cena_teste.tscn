@@ -1,15 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6bfudofjty1o"]
+[gd_scene load_steps=3 format=3 uid="uid://c6bfudofjty1o"]
 
-[ext_resource type="PackedScene" uid="uid://86eunm4148n5" path="res://bala_prototipo.tscn" id="1_p25j5"]
+[ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://spawner_prototipo.tscn" id="2_3lh6g"]
+[ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://navezinha.tscn" id="2_w8cgj"]
 
 [node name="Cena_Teste" type="Node2D"]
 
-[node name="Bala_Prototipo" parent="." instance=ExtResource("1_p25j5")]
-position = Vector2(240, 100)
-bullet_life = 10.0
-direction = 0.0
+[node name="Navezinha" parent="." instance=ExtResource("2_w8cgj")]
+position = Vector2(463, 134)
 
-[node name="Bala_Prototipo2" parent="." instance=ExtResource("1_p25j5")]
-position = Vector2(500, 100)
-bullet_life = 10.0
-direction = 180.0
+[node name="Spawner_prototipo" parent="." instance=ExtResource("2_3lh6g")]
+position = Vector2(576, 324)
+_move_type = 1
+rotationSpeed = -10
+arms = 16
+skewArms = -0.3
+firingRate = 10.0
+bullet_life = 4.0
+bullet_SPEED = 200.0
+
+[node name="Spawner_prototipo2" parent="." instance=ExtResource("2_3lh6g")]
+position = Vector2(576, 324)
+_move_type = 1
+rotationSpeed = 10
+arms = 16
+skewArms = 0.3
+firingRate = 10.0
+bullet_life = 4.0
+bullet_SPEED = 200.0
