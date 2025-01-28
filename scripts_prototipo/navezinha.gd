@@ -24,10 +24,11 @@ func _process(delta: float) -> void:
 	
 	#move o personagem quando tu tá apertando alguma direção
 	if direction:
-		velocity += acc * delta
-		velocity = clamp(velocity, 0, acc_max)
+		velocity = SPEED
 		#lembra de física? isso aqui é literal S = vt, pq velocidade é direção * rapidez, e delta é tempo
-		position +=  (SPEED + velocity) * delta * direction
+		if(Input.is_action_pressed("Slow")):
+			velocity = velocity * 2 / 3
+		position += velocity * delta * direction
 		position = position.clamp(Vector2.ZERO + Vector2(19, 24) , screen_size - (Vector2(19,13)))
 	if not direction: 
 		velocity = 0

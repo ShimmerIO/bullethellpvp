@@ -10,8 +10,7 @@ size = Vector2(13, 1096)
 
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
 position = Vector2(766, 265)
-SPEED = 300.0
-acc = 10.0
+SPEED = 425.0
 
 [node name="StaticBody2D" type="Area2D" parent="."]
 position = Vector2(960, 0)
