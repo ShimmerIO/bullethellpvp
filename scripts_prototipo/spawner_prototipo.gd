@@ -3,14 +3,22 @@ extends Node2D
 #carrega o prefab da bala na memória, necessário pra poder instanciar balas
 var bullet_scene = preload("res://cenas_prototipo/bala_prototipo.tscn")
 
+#carrega o game-director, FEITO AUTOMATICAMENTE! NÃO COLOCAR NADA MANUAL, REPITO, NAAAAAADAAAAAA MANUALLLLLL
+@export var GameDirector: Node
+
+#Fala pro spawner qual lado do board ele tá, e qual player ele deveria pedir pro diretor, again, AUTOMÁTICO
+#0 é o player da esquerda, 1 é o da direita, faz sentido? foda-se
+var PlayerSide: int
+
+
 #enum dos possíveis estados do spawner
-enum movement_type {STILL, SPIN}
+enum movement_type {STILL, SPIN, TRACK}
 enum bullet_spawn_type{SINGLE, BURST}
 enum stopping_criteria{TIME, BULLETCAP, NONE}
 
 #variáveis que seguram os estados do spawner
 @export_category("Tipo de spawner")
-@export_enum("STILL","SPIN") var _move_type: int  = movement_type.STILL
+@export_enum("STILL","SPIN", "TRACK") var _move_type: int  = movement_type.STILL
 @export_enum("SINGLE","BURST") var _spawn_type: int = bullet_spawn_type.SINGLE
 @export_enum("TIME","BULLETCAP", "NONE") var _stops_type: int = stopping_criteria.TIME
 
@@ -45,7 +53,7 @@ enum stopping_criteria{TIME, BULLETCAP, NONE}
 
 @export_category("Opções de bala")
 # variáveis que se relacionam à bala
-@export var direction: float
+var direction: float
 @export var bullet_life: float
 @export var bullet_SPEED: float
 
@@ -58,8 +66,6 @@ var timer:float
 func _ready() -> void:
 	$Bala.hide()
 	$Polygon2D.hide()
-	if(isPathed):
-		position = pathToFollow.position
 	
 	if(_stops_type == stopping_criteria.TIME):
 		#manda o comando stop_firing depois de firingTime segundos
@@ -69,6 +75,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	#faz ele seguir o followSpeed% do path por segundo
 	if(isPathed):
 		pathToFollow.progress_ratio += followSpeed * delta
 		position = pathToFollow.position
@@ -77,6 +85,12 @@ func _process(delta: float) -> void:
 	if(_move_type == movement_type.SPIN):
 			self.rotation += (rotationSpeed*delta*PI)/180
 	timer += delta
+	
+	if(_move_type == movement_type.TRACK):
+		var currentPlayerPosition = GameDirector.get_player(PlayerSide).position
+		var vectorToPlayer = currentPlayerPosition - position
+		direction = Vector2.RIGHT.angle_to(vectorToPlayer) * 180.0 / PI
+	
 	if(timer >= 1/firingRate):
 		#se for do tipo single, só lança uma bala
 		if(_spawn_type == bullet_spawn_type.SINGLE):

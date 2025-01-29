@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6bfudofjty1o"]
+[gd_scene load_steps=5 format=3 uid="uid://c6bfudofjty1o"]
 
 [ext_resource type="Script" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
 [ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://cenas_prototipo/navezinha.tscn" id="1_q2465"]
+[ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="3_bcpdq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxtm3"]
 size = Vector2(13, 1096)
@@ -10,7 +11,6 @@ size = Vector2(13, 1096)
 
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
 position = Vector2(766, 265)
-SPEED = 425.0
 
 [node name="StaticBody2D" type="Area2D" parent="."]
 position = Vector2(960, 0)
@@ -21,5 +21,16 @@ position = Vector2(0, 538)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_xxtm3")
 
-[node name="GameDirectorOneShot" type="Node" parent="."]
+[node name="GameDirectorOneShot" type="Node" parent="." node_paths=PackedStringArray("Player0")]
 script = ExtResource("1_1gkh1")
+Player0 = NodePath("../Navezinha")
+
+[node name="Spawner_prototipo" parent="." node_paths=PackedStringArray("GameDirector") instance=ExtResource("3_bcpdq")]
+position = Vector2(359, 470)
+GameDirector = NodePath("../GameDirectorOneShot")
+_move_type = 2
+_stops_type = 2
+arms = 8
+firingRate = 10.0
+bullet_life = 5.0
+bullet_SPEED = 200.0
