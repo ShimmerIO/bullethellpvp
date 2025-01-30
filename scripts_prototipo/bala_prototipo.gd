@@ -4,7 +4,9 @@ class_name Bullet
 @export var SPEED: float
 @export var bullet_life: float
 @export var direction: float
-enum TYPE {pequena_vermelha, pequena_azul, grande_roxa}
+
+enum color {RED, BLUE}
+enum size {SMALL, BIG}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -10,7 +10,7 @@ func _get(property):
 		return índice_padrão
 	if property == "difficulty":
 		return dificuldade
-	
+
 func _get_property_list():
 	var properties = []
 	properties.append({
@@ -20,3 +20,8 @@ func _get_property_list():
 		"difficulty":dificuldade
 	})
 	return properties
+
+func check_if_expired():
+	await get_tree().create_timer(get_process_delta_time()).timeout
+	if(get_child_count() == 0):
+		queue_free()
