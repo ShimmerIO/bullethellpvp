@@ -82,7 +82,7 @@ func next_wave():
 
 	# TODO só lê as duas linhas a baixo tu vai entender oqq precisa fazer ainda
 	#if condição_que_verifica_se_deveria_aumentar_dificuldade:
-	# 	print("nossa aumenta ai")
+	# 	nossa aumenta ai()
 	
 	#se for a wave máxima começa os pattern random, que nem balão 
 	if waveIndex == MAXWAVE:

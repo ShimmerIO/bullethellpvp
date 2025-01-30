@@ -12,6 +12,8 @@ extends Node
 # pra colocar mais padrões só coloca abaixo, ele vai colocar em ordem, o primeiro como primeiro
 #segundo como segundo, etc.
 
+
+
 static func send_pattern():
 	var PatternToSend:Array
 	PatternToSend.append([[4,1],5.0])

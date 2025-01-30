@@ -65,12 +65,12 @@ var direction: float
 @export_category("Setting iniciais")
 #pra poder dar um wakeup'e criar padrões em uma cena só 
 @export var isSleeping: bool
-@export var sleepingTime:float
+@export var sleepingTime: float
 
 #variáveis pra conta interna, não mexer
 var firedBullets: int
 var i = 0
-var timer:float
+var timer: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

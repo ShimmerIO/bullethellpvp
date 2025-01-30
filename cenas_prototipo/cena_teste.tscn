@@ -10,7 +10,7 @@ size = Vector2(13, 1096)
 [node name="Cena_Teste" type="Node2D"]
 
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(766, 265)
+position = Vector2(496, 547)
 
 [node name="StaticBody2D" type="Area2D" parent="."]
 position = Vector2(960, 0)

@@ -1,29 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6yp80jcx3bjn"]
 
 [ext_resource type="Script" path="res://scripts_prototipo/navezinha.gd" id="1_strdr"]
-[ext_resource type="Texture2D" uid="uid://b4b7aaytogat7" path="res://sprites_prototipo/bala.png" id="2_tn3fk"]
+[ext_resource type="Texture2D" uid="uid://bj8jx8v5v44js" path="res://sprites_prototipo/NAVE_TESTE.png" id="2_dsgh6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_guu3j"]
-radius = 5.0
+radius = 5.5
 
 [node name="Navezinha" type="Area2D" groups=["Player"]]
-scale = Vector2(2, 2)
+position = Vector2(1, 0)
+scale = Vector2(3.333, 3.333)
 script = ExtResource("1_strdr")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(0.666667, 0.666667)
-scale = Vector2(0.25, 0.25)
-color = Color(0, 0, 1, 1)
-polygon = PackedVector2Array(-41, 20, 33, 19, -4, -52)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, -3)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_guu3j")
 
-[node name="Bala" type="Sprite2D" parent="."]
-position = Vector2(-4.76837e-07, -0.5)
-scale = Vector2(0.02, 0.022)
-texture = ExtResource("2_tn3fk")
+[node name="NaveTeste" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_dsgh6")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="hit" from="." to="." method="_on_hit"]
