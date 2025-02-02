@@ -5,36 +5,51 @@ signal hit
 
 #velocidade do player
 @export_category("Opções nave")
-#708 é 425 * 5/3, 425 é o valor que o nando achou comfy em 1152x648 
-@export var SPEED = 708.0
+#700 é 425 * 5/3, 425 é o valor que o nando achou comfy em 1152x648 
+@export var SPEED = 700.0
 @export var acc:float
 @export var acc_max:float
+var isSlow: bool
 
 var velocity = 0
 
 #pega o tamanho da tela
 var screen_size:Vector2
 
+@export var playerSide:int
+
+var myID
+var currentID
+
 func _ready() -> void:
+	if global_position.x > 960:
+		playerSide = 1
 	#pega o tamanho da tela, e faz magia nela, again, placeholder e hack por enquanto
 	screen_size = get_viewport_rect().size
 	screen_size -= Vector2(screen_size.x/2,0)
 
 func _process(delta: float) -> void:
-	#gera um vetor normalizado baseado no input, muito bom
-	var direction := Input.get_vector("ui_left", "ui_right","ui_up","ui_down")
+	var direction 
 	
+	if myID != null:
+			direction = MultiplayerInput.get_vector(myID,"custom_left", "custom_right","custom_up","custom_down")
+			if MultiplayerInput.is_action_pressed(myID,"custom_slow"):
+				isSlow = true
+			else:
+				isSlow = false
+		
 	#move o personagem quando tu tá apertando alguma direção
 	if direction:
 		velocity = SPEED
 		#movimentação precisa com o botão de slow segurado, atualmente shift
-		if(Input.is_action_pressed("Slow")):
+		if(isSlow):
 			velocity = velocity * 2 / 3
 		#lembra de física? isso aqui é literal S = vt, pq velocidade é direção * rapidez, e delta é tempo
 		position += velocity * delta * direction
 		
 		#mantém o personagem na tela, CRITICAL PLACEHOLDER! ISSO ESTÁ AQUI ENQUANTO NÃO TEMOS OS SPRITES FINAIS!
-		position = position.clamp(Vector2.ZERO + Vector2(19, 24) , screen_size - (Vector2(19,13)))
+		position = position.clamp(Vector2.ZERO + Vector2(19 + 960*playerSide, 24) , screen_size - (Vector2(19 - 960 * playerSide,13)))
+
 		
 	if not direction: 
 		velocity = 0
