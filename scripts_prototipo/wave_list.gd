@@ -1,5 +1,3 @@
-extends Node
-
 
 static func get_wave(index: int, difficulty: int):
 	var dificuldade:String

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6bfudofjty1o"]
+[gd_scene load_steps=6 format=3 uid="uid://c6bfudofjty1o"]
 
 [ext_resource type="Script" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
 [ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://cenas_prototipo/navezinha.tscn" id="1_q2465"]
 [ext_resource type="Script" path="res://scripts_prototipo/GameDirector.gd" id="3_akmlt"]
+[ext_resource type="Script" path="res://scripts_prototipo/control_director.gd" id="4_6byac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxtm3"]
 size = Vector2(13, 1096)
@@ -12,18 +13,32 @@ size = Vector2(13, 1096)
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
 position = Vector2(496, 547)
 
+[node name="Navezinha2" parent="." instance=ExtResource("1_q2465")]
+position = Vector2(1353, 532)
+
 [node name="StaticBody2D" type="Area2D" parent="."]
 position = Vector2(960, 0)
 disable_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 538)
-scale = Vector2(0.01, 1)
+scale = Vector2(1e-05, 1)
 shape = SubResource("RectangleShape2D_xxtm3")
 
 [node name="NoLongerGameDirector" type="Node" parent="."]
 script = ExtResource("1_1gkh1")
 
-[node name="GameDirector" type="Node" parent="." node_paths=PackedStringArray("Player0") groups=["Director"]]
+[node name="GameDirector" type="Node" parent="." node_paths=PackedStringArray("Player0", "Player1") groups=["Director"]]
 script = ExtResource("3_akmlt")
 Player0 = NodePath("../Navezinha")
+Player1 = NodePath("../Navezinha2")
+isEndless = true
+easyWeight = 100.0
+minPatternCount = 2
+maxPatternCount = 5
+minTime = 5.0
+maxTime = 10.0
+easyCount = 3
+
+[node name="ControlDirector" type="Node" parent="."]
+script = ExtResource("4_6byac")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts_prototipo/spawner_prototipo.gd" id="1_ewwoa"]
 [ext_resource type="Texture2D" uid="uid://b4b7aaytogat7" path="res://sprites_prototipo/bala.png" id="2_j8f1n"]
 
-[node name="Spawner_prototipo" type="Node2D"]
+[node name="Spawner_prototipo" type="Node2D" groups=["Spawners"]]
 script = ExtResource("1_ewwoa")
 
 [node name="Bala" type="Sprite2D" parent="."]

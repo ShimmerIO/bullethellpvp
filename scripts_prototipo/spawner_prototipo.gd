@@ -71,9 +71,12 @@ var direction: float
 var firedBullets: int
 var i = 0
 var timer: float
+var myPatternFamily: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
+	myPatternFamily = str("Padrão", get_parent())
 
 	#acha o game director e coloca ele na variável certa, comenta essa linha fora em caso de teste
 	GameDirector = get_tree().get_nodes_in_group("Director")[0] 
@@ -81,6 +84,10 @@ func _ready() -> void:
 	#faz os sprites do spawner sumirem
 	$Bala.hide()
 	$Polygon2D.hide()
+	
+	#se spawnou do lado do player 2, é o player 2 que ele vai atras
+	if(global_position.x > 960):
+		PlayerSide = 1
 	
 	#se tiver dormindo, faz ele dormir pelo tempo de dormir, sei lá mano tá bem claro
 	if(isSleeping):
@@ -92,6 +99,8 @@ func _ready() -> void:
 		self.show()
 		#retorna a var pro fire rate
 		firingRate = storeFireRate
+		isSleeping = false
+		get_tree().call_group(myPatternFamily, "synchronize")
 	
 	if(_stops_type == stopping_criteria.TIME):
 		#manda o comando stop_firing depois de firingTime segundos
@@ -170,3 +179,7 @@ func fire_bullet():
 	bullet.bullet_life = bullet_life
 	bullet.add_to_group("Bullets")
 	add_child(bullet)
+
+func synchronize():
+	if not isSleeping:
+		timer = 1/firingRate
