@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 	var currentID = event.get_device()
 	if MultiplayerInput.is_action_just_pressed(-1, "add_player"):
 		currentID = -1
-	if MultiplayerInput.is_action_just_pressed(currentID, "add_player"):
+	if Input.is_action_just_pressed("add_player"):
 		if FirstPlayer == null:
 			FirstPlayer = currentID
 			gameDirector.Player0.myID = currentID

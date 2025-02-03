@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://blcgn1iy81o7i"]
+
+[ext_resource type="Script" path="res://scripts_prototipo/base_padrões.gd" id="1_8uqw3"]
+[ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="2_1qkru"]
+[ext_resource type="Script" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_pq4pg"]
+[ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_cmgu8"]
+
+[node name="Base_Padrões" type="Node2D"]
+position = Vector2(480, 540)
+script = ExtResource("1_8uqw3")
+"índice_padrão" = 5
+metadata/_edit_vertical_guides_ = [959.0]
+
+[node name="CentroCena" parent="." instance=ExtResource("2_1qkru")]
+position = Vector2(0, 0)
+script = ExtResource("3_pq4pg")
+
+[node name="Spawner_prototipo" parent="." instance=ExtResource("4_cmgu8")]
+position = Vector2(-480, 0)
+isLooks = true
+chosenPoint = Vector2(480, 540)
+timeToExpire = 10.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 200.0
+
+[node name="Spawner_prototipo2" parent="." instance=ExtResource("4_cmgu8")]
+position = Vector2(0, 540)
+isLooks = true
+chosenPoint = Vector2(480, 540)
+timeToExpire = 10.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 233.333
+
+[node name="Spawner_prototipo3" parent="." instance=ExtResource("4_cmgu8")]
+position = Vector2(0, -540)
+isLooks = true
+chosenPoint = Vector2(480, 540)
+timeToExpire = 10.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 233.33
+
+[node name="Spawner_prototipo4" parent="." instance=ExtResource("4_cmgu8")]
+position = Vector2(480, 0)
+isLooks = true
+chosenPoint = Vector2(480, 540)
+timeToExpire = 10.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 200.0

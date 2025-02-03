@@ -3,6 +3,9 @@ extends Node
 #chama a lista de patterns, usado pra saber o que atirar
 var PatternList = preload("res://scripts_prototipo/pattern_list.gd")
 
+#chama a lista de ataques, pra saber o que atacar
+var AttackList = preload("res://scripts_prototipo/attack_list.gd")
+
 #chama a lista de waves, usado pra saber quais patterns fazer
 var WaveList = preload("res://scripts_prototipo/wave_list.gd")
 
@@ -17,13 +20,9 @@ enum dificuldade {FÁCIL, MÉDIO, DIFÍCIL}
 var currentWave:GDScript
 var currentDifficulty: int
 
-
 #Índices usado pra saber o que fazer
 var waveIndex: int = 0
 var patternIndex: int
-
-var FirstPlayer
-var SecondPlayer
 
 # número de waves já mandados, diferente de waveIndex porque ele é resetado, esse daqui não
 var waveCount = 0
@@ -51,12 +50,12 @@ var hasStarted: bool = false
 @export var hardCount: int
 
 var currentRandomWave:Array
+var stop:bool
 
 func _ready() -> void:
 	#TODO fazer isso daqui ser automático no game_start, não no ready do director
 	#lê a primeira wave na variável, só pra error-catching eu acho
 	currentWave = WaveList.get_wave(1,dificuldade.FÁCIL)
-
 
 func _process(_delta: float) -> void:
 	#inicia o jogo, NOTE isso é pra teste
@@ -79,10 +78,11 @@ func make_natural_pattern(index):
 	
 	#coloca a instância dopadrão ativo em Active Pattern
 	var ActivePattern = PatternList.get_pattern(currentPattern[0][0],currentPattern[0][1])
+	
 	var player0Pattern = ActivePattern.instantiate()
 	var player1Pattern = ActivePattern.instantiate()
-	
-	player1Pattern.position.x += 970
+
+	player1Pattern.position.x += 960
 	
 	add_child(player0Pattern)
 	add_child(player1Pattern)
@@ -103,6 +103,8 @@ func get_natural_pattern(index):
 #chama o próximo pattern, literalmente o nome
 func next_pattern(index):
 	#verifica se chegou no fim da wave, se sim, ele para de ler o resto e vai pra próxima wave
+	if stop:
+		return
 	
 	if index >= currentWave.send_pattern().size()-1 and not isEndless:
 		next_wave()
@@ -120,7 +122,7 @@ func next_pattern(index):
 func next_wave():
 	
 	#se for a wave máxima começa os pattern random, que nem balão 
-	if waveCount >= maxWave or isEndless:
+	if isEndless or waveCount >= maxWave:
 		isEndless = true
 		currentRandomWave = generate_random_wave()
 		send_wave()
@@ -152,28 +154,47 @@ func generate_random_wave() -> Array:
 	
 	for n in range(0, amountOfPatterns):
 		arrayToSend.append(generate_random_pattern())
-		
+	
 	return arrayToSend
 
 func generate_random_pattern() -> Array:
 
 	var randomDifficulty = randf_range(0,100)
-	
 	var chosenDifficulty:int
-	
 	var chosenIndex: int
-	
 	var chosenTime: float = randf_range(minTime,maxTime)
-	
 	
 	if randomDifficulty < easyWeight:
 		chosenDifficulty = 0
 		chosenIndex = randi_range(1, easyCount)
-	elif randomDifficulty < mediumWeight:
+	elif randomDifficulty < easyWeight + mediumWeight:
 		chosenDifficulty = 1
 		chosenIndex = randi_range(1, mediumCount)
-	elif randomDifficulty < hardWeight:
+	elif randomDifficulty < easyWeight + mediumWeight + hardWeight:
 		chosenDifficulty = 2
 		chosenIndex = randi_range(1, hardCount)
+	else:
+		print("opa amigo, o float caiu fora do range, por favor faz os pesos somarem a 100, amigo")
+		chosenDifficulty = 2
+		chosenIndex = 420
+		stop = true
 	
 	return [[chosenIndex,chosenDifficulty],chosenTime]
+
+func make_attack(attackIndex:int, attackFolder:int, sendingPlayer:int):
+	
+	var attackingPattern = AttackList.get_attack(attackIndex,attackFolder)
+	var attackedPlayer:int
+	
+	match sendingPlayer:
+		0: attackedPlayer = 1
+		1: attackedPlayer = 0
+	
+	var attackInstance = attackingPattern.instantiate()
+	attackInstance.global_position.x += 960 * attackedPlayer
+	add_child(attackInstance)
+
+func _on_player_grazed(isGrazing:bool, playerSide:int) -> void:
+	if (isGrazing):
+		get_player(playerSide).grazeMeter += 1
+		print("Aumentado!", playerSide, get_player(playerSide).grazeMeter)

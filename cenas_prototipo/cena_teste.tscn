@@ -36,9 +36,12 @@ isEndless = true
 easyWeight = 100.0
 minPatternCount = 2
 maxPatternCount = 5
-minTime = 5.0
-maxTime = 10.0
-easyCount = 3
+minTime = 4.0
+maxTime = 8.0
+easyCount = 4
 
 [node name="ControlDirector" type="Node" parent="."]
 script = ExtResource("4_6byac")
+
+[connection signal="grazed" from="Navezinha" to="GameDirector" method="_on_player_grazed"]
+[connection signal="grazed" from="Navezinha2" to="Navezinha" method="_on_player_grazed"]

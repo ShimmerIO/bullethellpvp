@@ -17,8 +17,26 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_guu3j")
 
 [node name="NaveTeste" type="Sprite2D" parent="."]
+position = Vector2(-0.666, 0)
 scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_dsgh6")
+
+[node name="Graze" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graze"]
+scale = Vector2(1.2, 1.2)
+polygon = PackedVector2Array(-12.2512, 16.0016, -2.25022, 6.0006, 1.75017, 6.0006, 11.7512, 16.0016, 15.7516, 12.0012, 13.7514, -2.0002, -0.250025, -16.0016, -14.2514, -2.0002, -16.2516, 12.0012)
+
+[node name="GrazeShape" type="Sprite2D" parent="Graze"]
+self_modulate = Color(1, 1, 1, 0.0901961)
+position = Vector2(-0.9, 0)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_dsgh6")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="hit" from="." to="." method="_on_hit"]
+[connection signal="area_entered" from="Graze" to="." method="_on_graze_area_entered"]
+[connection signal="area_exited" from="Graze" to="." method="_on_graze_area_exited"]

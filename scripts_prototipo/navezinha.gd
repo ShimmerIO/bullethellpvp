@@ -3,6 +3,9 @@ extends Area2D
 #determina a existência do sinal hit, usado pra conectar até o game-master eventualmente
 signal hit
 
+#determina a existência do sinal de graze
+signal grazed
+
 #velocidade do player
 @export_category("Opções nave")
 #700 é 425 * 5/3, 425 é o valor que o nando achou comfy em 1152x648 
@@ -18,6 +21,11 @@ var screen_size:Vector2
 
 @export var playerSide:int
 
+var isGrazing:bool
+var grazeMeter:int
+var timer: float
+var timeToIncreaseGraze:float = 1
+
 var myID
 var currentID
 
@@ -29,8 +37,12 @@ func _ready() -> void:
 	screen_size -= Vector2(screen_size.x/2,0)
 
 func _process(delta: float) -> void:
-	var direction 
+	if isGrazing:
+		$Graze/GrazeShape.show()
+	elif not has_overlapping_areas():
+		$Graze/GrazeShape.hide()
 	
+	var direction 
 	if myID != null:
 			direction = MultiplayerInput.get_vector(myID,"custom_left", "custom_right","custom_up","custom_down")
 			if MultiplayerInput.is_action_pressed(myID,"custom_slow"):
@@ -65,3 +77,13 @@ func _on_area_entered(area: Area2D) -> void:
 #função interna que faz o efeito on_hit, usa isso aqui pra deixar invulnerável, MAS NÃO PRA VIDA, ISSO É O GAME MASTER QUEM FAZ
 func _on_hit() -> void:
 	print("ai meu pancreas")
+
+func _on_graze_area_entered(area: Area2D) -> void:
+	if(area.is_in_group("Bullets")):
+		isGrazing = true
+		grazed.emit(isGrazing, playerSide)
+
+func _on_graze_area_exited(area: Area2D) -> void:
+	if(area.is_in_group("Bullets")):
+		isGrazing = false
+		grazed.emit(isGrazing, playerSide)
