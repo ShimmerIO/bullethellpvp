@@ -3,9 +3,9 @@ extends Node2D
 #carrega o prefab da bala na memória, necessário pra poder instanciar balas
 var bullet_scene = preload("res://cenas_prototipo/bala_prototipo.tscn")
 
-#carrega o game-director, FEITO AUTOMATICAMENTE! NÃO COLOCAR NADA MANUAL, REPITO, NAAAAAADAAAAAA MANUALLLLLL 
+#carrega o Player-director, FEITO AUTOMATICAMENTE! NÃO COLOCAR NADA MANUAL, REPITO, NAAAAAADAAAAAA MANUALLLLLL 
 #a não ser para teste
-@export var GameDirector: Node
+@export var PlayerDirector: Node
 
 #Fala pro spawner qual lado do board ele tá, e qual player ele deveria pedir pro diretor, again, AUTOMÁTICO
 #0 é o player da esquerda, 1 é o da direita, faz sentido? foda-se
@@ -84,7 +84,7 @@ func _ready() -> void:
 	myPatternFamily = str("Padrão", get_parent())
 
 	#acha o game director e coloca ele na variável certa, comenta essa linha fora em caso de teste
-	GameDirector = get_tree().get_nodes_in_group("Director")[0] 
+	PlayerDirector = get_tree().get_nodes_in_group("PlayerDirector")[0]
 	
 	#faz os sprites do spawner sumirem
 	$Bala.hide()
@@ -120,7 +120,7 @@ func _process(delta: float) -> void:
 	
 	if(isFuckYou):
 		print("oops! you need to KILL YOURSELF, NOW!")
-		position += (GameDirector.get_player(PlayerSide).global_position - global_position).normalized() * 200 * delta
+		position += (PlayerDirector.get_player(PlayerSide).global_position - global_position).normalized() * 200 * delta
 	
 	if(isLooks):
 		self.rotation = 0
@@ -137,7 +137,7 @@ func _process(delta: float) -> void:
 	
 	#código para dar track no player se o spawner for desse tipo
 	if(_move_type == movement_type.TRACK):
-		var currentPlayerPosition = GameDirector.get_player(PlayerSide).global_position
+		var currentPlayerPosition = PlayerDirector.get_player(PlayerSide).global_position
 		direction =  fire_at(currentPlayerPosition) * 180.0 / PI
 
 	#aumenta o timer a cada delta que se passa, usado pra atirar de acordo com o fire rate
@@ -206,3 +206,4 @@ func synchronize():
 
 func set_player_side(index:int):
 	PlayerSide = index
+	chosenPoint.x += 960 * index

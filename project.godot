@@ -50,6 +50,14 @@ folder_colors={
 "res://sprites_prototipo/": "red"
 }
 
+[global_group]
+
+GameDirector=""
+Player=""
+Spawners=""
+PlayerDirector=""
+ControlDirector=""
+
 [input]
 
 ui_left={

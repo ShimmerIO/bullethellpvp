@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bref7184bxr87"]
+
+[ext_resource type="Script" path="res://scripts_prototipo/hp_bar.gd" id="1_7ltjt"]
+[ext_resource type="Texture2D" uid="uid://cw8rnq8aux5u1" path="res://sprites_prototipo/empty_shield.png" id="2_dkb46"]
+
+[node name="HpBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7ltjt")
+
+[node name="HPcontainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 40.0
+
+[node name="Shield1" type="TextureRect" parent="HPcontainer"]
+layout_mode = 2
+texture = ExtResource("2_dkb46")
+expand_mode = 3

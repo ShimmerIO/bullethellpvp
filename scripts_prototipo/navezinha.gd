@@ -29,6 +29,11 @@ var timeToIncreaseGraze:float = 1
 var myID
 var currentID
 
+var isInvulnerable:bool
+@export var invulnerabilityTimer:float = 1
+
+var isSleep:bool
+
 func _ready() -> void:
 	if global_position.x > 960:
 		playerSide = 1
@@ -37,6 +42,17 @@ func _ready() -> void:
 	screen_size -= Vector2(screen_size.x/2,0)
 
 func _process(delta: float) -> void:
+	if isSleep:
+		return
+	
+	if isInvulnerable:
+		timer+= delta
+		$NaveTeste.self_modulate = Color(1,1,1,0.5)
+		if timer > invulnerabilityTimer:
+			isInvulnerable = false
+			timer = 0
+			$NaveTeste.self_modulate = Color(1,1,1,1)
+	
 	if isGrazing:
 		$Graze/GrazeShape.show()
 	elif not has_overlapping_areas():
@@ -65,18 +81,22 @@ func _process(delta: float) -> void:
 		
 	if not direction: 
 		velocity = 0
+		
+func sleep():
+	isSleep = true
+	self.hide()
 
 func _on_area_entered(area: Area2D) -> void:
 	#se colidir com uma bala, é pra emitir o sinal hit
-	if(area.is_in_group("Bullets")):
-		hit.emit()
+	if(area.is_in_group("Bullets") and not isInvulnerable):
+		hit.emit(playerSide)
 	#isso aqui vai virar um elif eventualmente pra implementar outras zonas
-	else:
+	elif area.name == "zona":
 		print("ah yes, zona")
 
 #função interna que faz o efeito on_hit, usa isso aqui pra deixar invulnerável, MAS NÃO PRA VIDA, ISSO É O GAME MASTER QUEM FAZ
-func _on_hit() -> void:
-	print("ai meu pancreas")
+func _on_hit(player) -> void:
+	isInvulnerable = true
 
 func _on_graze_area_entered(area: Area2D) -> void:
 	if(area.is_in_group("Bullets")):

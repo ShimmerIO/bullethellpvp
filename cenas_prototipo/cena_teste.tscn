@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6bfudofjty1o"]
+[gd_scene load_steps=8 format=3 uid="uid://c6bfudofjty1o"]
 
 [ext_resource type="Script" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
 [ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://cenas_prototipo/navezinha.tscn" id="1_q2465"]
 [ext_resource type="Script" path="res://scripts_prototipo/GameDirector.gd" id="3_akmlt"]
 [ext_resource type="Script" path="res://scripts_prototipo/control_director.gd" id="4_6byac"]
+[ext_resource type="PackedScene" uid="uid://bref7184bxr87" path="res://cenas_prototipo/HP_Bar.tscn" id="5_apg6a"]
+[ext_resource type="Script" path="res://scripts_prototipo/player_director.gd" id="5_tgs65"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxtm3"]
 size = Vector2(13, 1096)
@@ -11,10 +13,11 @@ size = Vector2(13, 1096)
 [node name="Cena_Teste" type="Node2D"]
 
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(496, 547)
+position = Vector2(460, 540)
 
 [node name="Navezinha2" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(1353, 532)
+position = Vector2(1500, 540)
+playerSide = 1
 
 [node name="StaticBody2D" type="Area2D" parent="."]
 position = Vector2(960, 0)
@@ -28,10 +31,8 @@ shape = SubResource("RectangleShape2D_xxtm3")
 [node name="NoLongerGameDirector" type="Node" parent="."]
 script = ExtResource("1_1gkh1")
 
-[node name="GameDirector" type="Node" parent="." node_paths=PackedStringArray("Player0", "Player1") groups=["Director"]]
+[node name="GameDirector" type="Node" parent="." groups=["GameDirector"]]
 script = ExtResource("3_akmlt")
-Player0 = NodePath("../Navezinha")
-Player1 = NodePath("../Navezinha2")
 isEndless = true
 easyWeight = 100.0
 minPatternCount = 2
@@ -40,8 +41,24 @@ minTime = 4.0
 maxTime = 8.0
 easyCount = 4
 
-[node name="ControlDirector" type="Node" parent="."]
+[node name="ControlDirector" type="Node" parent="." groups=["ControlDirector"]]
 script = ExtResource("4_6byac")
 
-[connection signal="grazed" from="Navezinha" to="GameDirector" method="_on_player_grazed"]
-[connection signal="grazed" from="Navezinha2" to="Navezinha" method="_on_player_grazed"]
+[node name="PlayerDirector" type="Node" parent="." groups=["PlayerDirector"]]
+script = ExtResource("5_tgs65")
+
+[node name="HpBar" parent="." instance=ExtResource("5_apg6a")]
+
+[node name="HpBar2" parent="." instance=ExtResource("5_apg6a")]
+layout_direction = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1980.0
+offset_right = 1980.0
+grow_horizontal = 0
+scale = Vector2(-1, 1)
+playerSide = 1
+
+[connection signal="grazed" from="Navezinha2" to="GameDirector" method="_on_player_grazed"]
+[connection signal="hit" from="Navezinha2" to="GameDirector" method="_on_player_hit"]
