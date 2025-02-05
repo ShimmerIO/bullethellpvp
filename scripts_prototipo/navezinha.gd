@@ -76,7 +76,7 @@ func _process(delta: float) -> void:
 		position += velocity * delta * direction
 		
 		#mantém o personagem na tela, CRITICAL PLACEHOLDER! ISSO ESTÁ AQUI ENQUANTO NÃO TEMOS OS SPRITES FINAIS!
-		position = position.clamp(Vector2.ZERO + Vector2(19 + 960*playerSide, 24) , screen_size - (Vector2(19 - 960 * playerSide,13)))
+		position = position.clamp(Vector2.ZERO + Vector2(68 + 1004*playerSide, 92) , screen_size - (Vector2(68 + 40 - 1004 * playerSide,212)))
 
 		
 	if not direction: 

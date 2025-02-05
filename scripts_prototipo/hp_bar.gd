@@ -41,7 +41,7 @@ func generate_shields():
 func redraw():
 	#error-catching eu suponho
 	if currentHP > maxHP:
-		currentHP == maxHP
+		currentHP = maxHP
 	if currentHP < 0:
 		return
 	

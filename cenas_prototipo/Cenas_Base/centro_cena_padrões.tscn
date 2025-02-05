@@ -1,13 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwjb2n0aby1kd"]
+[gd_scene load_steps=3 format=3 uid="uid://bwjb2n0aby1kd"]
+
+[ext_resource type="Texture2D" uid="uid://c1h4cf7xrc7cw" path="res://sprites_prototipo/UI_teste_outra-export.png" id="1_y2a5u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdb4p"]
 size = Vector2(13, 1096)
 
 [node name="CentroCena" type="Marker2D"]
-position = Vector2(480, 540)
+position = Vector2(456, 480)
 
 [node name="StaticBody2D" type="Area2D" parent="."]
-position = Vector2(480, -540)
+position = Vector2(504, -480)
 disable_mode = 1
 metadata/_edit_group_ = true
 
@@ -17,7 +19,7 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D2" type="Area2D" parent="."]
-position = Vector2(-480, -540)
+position = Vector2(-456, -480)
 disable_mode = 1
 metadata/_edit_group_ = true
 
@@ -27,7 +29,7 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D3" type="Area2D" parent="."]
-position = Vector2(480, -540)
+position = Vector2(504, -480)
 rotation = 1.5708
 disable_mode = 1
 metadata/_edit_group_ = true
@@ -38,12 +40,16 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D4" type="Area2D" parent="."]
-position = Vector2(-480, 538)
+position = Vector2(-456, 600)
 rotation = -1.5708
 disable_mode = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(0, 538)
+position = Vector2(0, 540)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
+
+[node name="UiTesteOutra-export" type="Sprite2D" parent="."]
+position = Vector2(504, 60)
+texture = ExtResource("1_y2a5u")

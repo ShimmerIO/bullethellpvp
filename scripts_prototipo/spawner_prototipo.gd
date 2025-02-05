@@ -206,4 +206,4 @@ func synchronize():
 
 func set_player_side(index:int):
 	PlayerSide = index
-	chosenPoint.x += 960 * index
+	chosenPoint.x += 1004 * index

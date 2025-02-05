@@ -87,8 +87,8 @@ func make_natural_pattern(index):
 	var player0Pattern = ActivePattern.instantiate()
 	var player1Pattern = ActivePattern.instantiate()
 
-	#move o pattern do player1 por 960, pra ir pro lado dele da tela
-	player1Pattern.position.x += 960
+	#move o pattern do player1 por 1004, pra ir pro lado dele da tela
+	player1Pattern.position.x += 1004
 	
 	#isso insere eles na cena
 	add_child(player0Pattern)
@@ -217,5 +217,5 @@ func make_attack(attackIndex:int, attackFolder:int, sendingPlayer:int):
 	var attackedPlayer:int = 1 - sendingPlayer
 	
 	var attackInstance = attackingPattern.instantiate()
-	attackInstance.global_position.x += 960 * attackedPlayer
+	attackInstance.global_position.x += 1004 * attackedPlayer
 	add_child(attackInstance)
