@@ -8,8 +8,8 @@ radius = 5.0
 
 [node name="Bala_Prototipo" type="Area2D"]
 scale = Vector2(1.667, 1.667)
+collision_layer = 3
 script = ExtResource("1_2dvu5")
-SPEED = 300.0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

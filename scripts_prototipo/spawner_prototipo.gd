@@ -3,9 +3,9 @@ extends Node2D
 #carrega o prefab da bala na memória, necessário pra poder instanciar balas
 var bullet_scene = preload("res://cenas_prototipo/bala_prototipo.tscn")
 
-#carrega o game-director, FEITO AUTOMATICAMENTE! NÃO COLOCAR NADA MANUAL, REPITO, NAAAAAADAAAAAA MANUALLLLLL 
+#carrega o Player-director, FEITO AUTOMATICAMENTE! NÃO COLOCAR NADA MANUAL, REPITO, NAAAAAADAAAAAA MANUALLLLLL 
 #a não ser para teste
-@export var GameDirector: Node
+@export var PlayerDirector: Node
 
 #Fala pro spawner qual lado do board ele tá, e qual player ele deveria pedir pro diretor, again, AUTOMÁTICO
 #0 é o player da esquerda, 1 é o da direita, faz sentido? foda-se
@@ -25,11 +25,15 @@ enum stopping_criteria{TIME, BULLETCAP, NONE}
 @export_category("Caminhos e afins")
 # se o spawner segue algum caminho ou não
 @export var isPathed: bool = false
-#caminho a seguir
+#caminho a seguir, tem que ser um PathFollow2d, como filho de uma Path2d, pensa na path2d
+#como o caminho, e pathfollow como o ponto que traça esse caminho
 @export var pathToFollow: PathFollow2D
 #Velocidade que segue o caminho
 @export var followSpeed: float
 
+@export_category("Atira em ponto específico")
+@export var isLooks:bool
+@export var chosenPoint:Vector2
 
 @export_category("opções SPIN")
 #velocidade de rotação, em º/s
@@ -72,6 +76,7 @@ var firedBullets: int
 var i = 0
 var timer: float
 var myPatternFamily: String
+var isFuckYou: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -79,15 +84,15 @@ func _ready() -> void:
 	myPatternFamily = str("Padrão", get_parent())
 
 	#acha o game director e coloca ele na variável certa, comenta essa linha fora em caso de teste
-	GameDirector = get_tree().get_nodes_in_group("Director")[0] 
+	PlayerDirector = get_tree().get_nodes_in_group("PlayerDirector")[0]
 	
 	#faz os sprites do spawner sumirem
 	$Bala.hide()
 	$Polygon2D.hide()
 	
 	#se spawnou do lado do player 2, é o player 2 que ele vai atras
-	if(global_position.x > 960):
-		PlayerSide = 1
+	if get_parent().global_position.x > 960:
+		set_player_side(1)
 	
 	#se tiver dormindo, faz ele dormir pelo tempo de dormir, sei lá mano tá bem claro
 	if(isSleeping):
@@ -106,9 +111,20 @@ func _ready() -> void:
 		#manda o comando stop_firing depois de firingTime segundos
 		await get_tree().create_timer(timeToExpire).timeout
 		stop_firing()
+	
+	if(get_parent()._get("index") == 420 and get_parent()._get("difficulty") == 2):
+		isFuckYou = true
 
 
 func _process(delta: float) -> void:
+	
+	if(isFuckYou):
+		print("oops! you need to KILL YOURSELF, NOW!")
+		position += (PlayerDirector.get_player(PlayerSide).global_position - global_position).normalized() * 200 * delta
+	
+	if(isLooks):
+		self.rotation = 0
+		direction = fire_at(chosenPoint) * 180/PI 
 	
 	#faz ele seguir o followSpeed% do path por segundo
 	if(isPathed):
@@ -121,9 +137,8 @@ func _process(delta: float) -> void:
 	
 	#código para dar track no player se o spawner for desse tipo
 	if(_move_type == movement_type.TRACK):
-		var currentPlayerPosition = GameDirector.get_player(PlayerSide).global_position
-		var vectorToPlayer = currentPlayerPosition - global_position
-		direction = Vector2.RIGHT.angle_to(vectorToPlayer) * 180.0 / PI
+		var currentPlayerPosition = PlayerDirector.get_player(PlayerSide).global_position
+		direction =  fire_at(currentPlayerPosition) * 180.0 / PI
 
 	#aumenta o timer a cada delta que se passa, usado pra atirar de acordo com o fire rate
 	timer += delta 
@@ -180,6 +195,15 @@ func fire_bullet():
 	bullet.add_to_group("Bullets")
 	add_child(bullet)
 
+func fire_at(point:Vector2) -> float:
+	var vectorToPoint = point - global_position
+	var angle_difference = Vector2.RIGHT.angle_to(vectorToPoint)
+	return angle_difference
+
 func synchronize():
 	if not isSleeping:
 		timer = 1/firingRate
+
+func set_player_side(index:int):
+	PlayerSide = index
+	chosenPoint.x += 1004 * index

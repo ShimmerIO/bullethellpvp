@@ -7,7 +7,7 @@
 script = ExtResource("1_ewwoa")
 
 [node name="Bala" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.22)
+scale = Vector2(0.1, 0.11)
 texture = ExtResource("2_j8f1n")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]

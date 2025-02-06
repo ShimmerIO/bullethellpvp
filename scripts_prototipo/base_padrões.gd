@@ -4,6 +4,14 @@ class_name Padrão
 
 @export_enum("FÁCIL","MÉDIO","DIFÍCIL") var dificuldade: int 
 @export var índice_padrão:int
+@export var timeToExpire:int
+
+func _ready() -> void:
+	if timeToExpire != 0:
+		for child in get_children():
+			if child.has_method("synchronize"):
+				child.timeToExpire = timeToExpire
+	
 
 func _get(property):
 	if property == "index":

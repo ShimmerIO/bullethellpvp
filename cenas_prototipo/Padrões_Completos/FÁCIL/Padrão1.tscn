@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_xmg1w"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(480, 540)
+position = Vector2(456, 480)
 script = ExtResource("1_oqusy")
 "índice_padrão" = 1
 metadata/_edit_vertical_guides_ = [959.0]
@@ -16,11 +16,12 @@ position = Vector2(0, 0)
 script = ExtResource("3_pedni")
 
 [node name="Spawner_prototipo" parent="." instance=ExtResource("4_xmg1w")]
-_move_type = 1
-rotationSpeed = 20
-spreadCount = 5
-spreadAngle = 45.0
-timeToExpire = 10.0
-firingRate = 10.0
-bullet_life = 4.0
-bullet_SPEED = 200.0
+_move_type = 2
+_spawn_type = 2
+_stops_type = 1
+spreadCount = 3
+spreadAngle = 22.5
+bulletCap = 15
+firingRate = 5.0
+bullet_life = 6.0
+bullet_SPEED = 300.0

@@ -21,14 +21,42 @@ MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 
 [display]
 
-window/size/viewport_width=1980
+window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://cenas_prototipo/": "purple",
+"res://cenas_prototipo/Ataques/": "red",
+"res://cenas_prototipo/Ataques/Central/": "red",
+"res://cenas_prototipo/Ataques/Diagonal/": "red",
+"res://cenas_prototipo/Ataques/Espiral/": "red",
+"res://cenas_prototipo/Ataques/Horizontal/": "red",
+"res://cenas_prototipo/Ataques/Pathed/": "red",
+"res://cenas_prototipo/Ataques/Rotacional/": "red",
+"res://cenas_prototipo/Ataques/Tracking/": "red",
+"res://cenas_prototipo/Ataques/Vertical/": "red",
+"res://cenas_prototipo/Cenas_Base/": "orange",
+"res://cenas_prototipo/Padrões_Completos/": "yellow",
+"res://cenas_prototipo/Wave/": "green",
+"res://scripts_prototipo/": "pink",
+"res://sprites_prototipo/": "red"
+}
+
+[global_group]
+
+GameDirector=""
+Player=""
+Spawners=""
+PlayerDirector=""
+ControlDirector=""
 
 [input]
 

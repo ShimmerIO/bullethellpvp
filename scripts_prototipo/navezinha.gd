@@ -3,6 +3,9 @@ extends Area2D
 #determina a existência do sinal hit, usado pra conectar até o game-master eventualmente
 signal hit
 
+#determina a existência do sinal de graze
+signal grazed
+
 #velocidade do player
 @export_category("Opções nave")
 #700 é 425 * 5/3, 425 é o valor que o nando achou comfy em 1152x648 
@@ -18,8 +21,18 @@ var screen_size:Vector2
 
 @export var playerSide:int
 
+var isGrazing:bool
+var grazeMeter:int
+var timer: float
+var timeToIncreaseGraze:float = 1
+
 var myID
 var currentID
+
+var isInvulnerable:bool
+@export var invulnerabilityTimer:float = 1
+
+var isSleep:bool
 
 func _ready() -> void:
 	if global_position.x > 960:
@@ -29,8 +42,23 @@ func _ready() -> void:
 	screen_size -= Vector2(screen_size.x/2,0)
 
 func _process(delta: float) -> void:
-	var direction 
+	if isSleep:
+		return
 	
+	if isInvulnerable:
+		timer+= delta
+		$NaveTeste.self_modulate = Color(1,1,1,0.5)
+		if timer > invulnerabilityTimer:
+			isInvulnerable = false
+			timer = 0
+			$NaveTeste.self_modulate = Color(1,1,1,1)
+	
+	if isGrazing:
+		$Graze/GrazeShape.show()
+	elif not has_overlapping_areas():
+		$Graze/GrazeShape.hide()
+	
+	var direction 
 	if myID != null:
 			direction = MultiplayerInput.get_vector(myID,"custom_left", "custom_right","custom_up","custom_down")
 			if MultiplayerInput.is_action_pressed(myID,"custom_slow"):
@@ -48,20 +76,34 @@ func _process(delta: float) -> void:
 		position += velocity * delta * direction
 		
 		#mantém o personagem na tela, CRITICAL PLACEHOLDER! ISSO ESTÁ AQUI ENQUANTO NÃO TEMOS OS SPRITES FINAIS!
-		position = position.clamp(Vector2.ZERO + Vector2(19 + 960*playerSide, 24) , screen_size - (Vector2(19 - 960 * playerSide,13)))
+		position = position.clamp(Vector2.ZERO + Vector2(68 + 1004*playerSide, 92) , screen_size - (Vector2(68 + 40 - 1004 * playerSide,212)))
 
 		
 	if not direction: 
 		velocity = 0
+		
+func sleep():
+	isSleep = true
+	self.hide()
 
 func _on_area_entered(area: Area2D) -> void:
 	#se colidir com uma bala, é pra emitir o sinal hit
-	if(area.is_in_group("Bullets")):
-		hit.emit()
+	if(area.is_in_group("Bullets") and not isInvulnerable):
+		hit.emit(playerSide)
 	#isso aqui vai virar um elif eventualmente pra implementar outras zonas
-	else:
+	elif area.name == "zona":
 		print("ah yes, zona")
 
 #função interna que faz o efeito on_hit, usa isso aqui pra deixar invulnerável, MAS NÃO PRA VIDA, ISSO É O GAME MASTER QUEM FAZ
-func _on_hit() -> void:
-	print("ai meu pancreas")
+func _on_hit(player) -> void:
+	isInvulnerable = true
+
+func _on_graze_area_entered(area: Area2D) -> void:
+	if(area.is_in_group("Bullets")):
+		isGrazing = true
+		grazed.emit(isGrazing, playerSide)
+
+func _on_graze_area_exited(area: Area2D) -> void:
+	if(area.is_in_group("Bullets")):
+		isGrazing = false
+		grazed.emit(isGrazing, playerSide)

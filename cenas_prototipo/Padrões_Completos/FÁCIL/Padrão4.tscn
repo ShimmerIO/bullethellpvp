@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6qhcmcthsojc"]
+[gd_scene load_steps=5 format=3 uid="uid://cfavlmrihmwmi"]
 
 [ext_resource type="Script" path="res://scripts_prototipo/base_padrões.gd" id="1_df6qj"]
 [ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="2_glomn"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_p66p7"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(480, 540)
+position = Vector2(456, 480)
 script = ExtResource("1_df6qj")
+"índice_padrão" = 4
+timeToExpire = 10
 metadata/_edit_vertical_guides_ = [959.0]
 
 [node name="CentroCena" parent="." instance=ExtResource("2_glomn")]
@@ -15,9 +17,33 @@ position = Vector2(0, 0)
 script = ExtResource("3_cx4mk")
 
 [node name="Spawner_prototipo" parent="." instance=ExtResource("4_p66p7")]
-_move_type = 2
-_stops_type = 1
-bulletCap = 1
-firingRate = 10.0
-bullet_life = 6.0
-bullet_SPEED = 300.0
+position = Vector2(-416, 416)
+rotation = -0.785398
+timeToExpire = 6.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 200.0
+
+[node name="Spawner_prototipo2" parent="." instance=ExtResource("4_p66p7")]
+position = Vector2(-416, -416)
+rotation = 0.785398
+timeToExpire = 6.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 200.0
+
+[node name="Spawner_prototipo3" parent="." instance=ExtResource("4_p66p7")]
+position = Vector2(416, -416)
+rotation = 2.35619
+timeToExpire = 6.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 200.0
+
+[node name="Spawner_prototipo4" parent="." instance=ExtResource("4_p66p7")]
+position = Vector2(416, 416)
+rotation = -2.35619
+timeToExpire = 6.0
+firingRate = 1.0
+bullet_life = 8.0
+bullet_SPEED = 200.0
