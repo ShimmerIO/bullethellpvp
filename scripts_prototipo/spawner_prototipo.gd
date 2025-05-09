@@ -78,6 +78,9 @@ var timer: float
 var myPatternFamily: String
 var isFuckYou: bool
 
+const RIGHT_BORDER = 27
+const LEFT_BORDER = 13
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 
@@ -91,7 +94,7 @@ func _ready() -> void:
 	$Polygon2D.hide()
 	
 	#se spawnou do lado do player 2, é o player 2 que ele vai atras
-	if get_parent().global_position.x > 960:
+	if get_parent().global_position.x > get_viewport_rect().size.x/2:
 		set_player_side(1)
 	
 	#se tiver dormindo, faz ele dormir pelo tempo de dormir, sei lá mano tá bem claro
@@ -120,7 +123,7 @@ func _process(delta: float) -> void:
 	
 	if(isFuckYou):
 		print("oops! you need to KILL YOURSELF, NOW!")
-		position += (PlayerDirector.get_player(PlayerSide).global_position - global_position).normalized() * 200 * delta
+		position += (PlayerDirector.get_player(PlayerSide).global_position - global_position).normalized() * 60 * delta
 	
 	if(isLooks):
 		self.rotation = 0
@@ -206,4 +209,4 @@ func synchronize():
 
 func set_player_side(index:int):
 	PlayerSide = index
-	chosenPoint.x += 1004 * index
+	chosenPoint.x += (RIGHT_BORDER - LEFT_BORDER + get_viewport_rect().size.x/2) * index

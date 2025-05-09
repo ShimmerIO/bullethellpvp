@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://tdnor4sr1fte"]
 
-[ext_resource type="Script" path="res://scripts_prototipo/base_padrões.gd" id="1_retbh"]
+[ext_resource type="Script" uid="uid://dvyye6t6muo7s" path="res://scripts_prototipo/base_padrões.gd" id="1_retbh"]
 [ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="2_lcw5e"]
-[ext_resource type="Script" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_ybi8v"]
+[ext_resource type="Script" uid="uid://dbwckcg5q2fff" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_ybi8v"]
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_30rlk"]
 
 [node name="Base_Padrões" type="Node2D"]
@@ -13,7 +13,6 @@ timeToExpire = 10
 metadata/_edit_vertical_guides_ = [959.0]
 
 [node name="CentroCena" parent="." instance=ExtResource("2_lcw5e")]
-position = Vector2(0, 0)
 script = ExtResource("3_ybi8v")
 
 [node name="Spawner_prototipo2" parent="." instance=ExtResource("4_30rlk")]

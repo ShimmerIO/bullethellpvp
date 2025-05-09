@@ -1,21 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjyxbelmplu2i"]
 
-[ext_resource type="Script" path="res://scripts_prototipo/base_padrões.gd" id="1_oqusy"]
+[ext_resource type="Script" uid="uid://dvyye6t6muo7s" path="res://scripts_prototipo/base_padrões.gd" id="1_oqusy"]
 [ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="2_g2sa2"]
-[ext_resource type="Script" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_pedni"]
+[ext_resource type="Script" uid="uid://dbwckcg5q2fff" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_pedni"]
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_xmg1w"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(456, 480)
 script = ExtResource("1_oqusy")
 "índice_padrão" = 1
 metadata/_edit_vertical_guides_ = [959.0]
 
 [node name="CentroCena" parent="." instance=ExtResource("2_g2sa2")]
-position = Vector2(0, 0)
+position = Vector2(160, 180)
 script = ExtResource("3_pedni")
 
 [node name="Spawner_prototipo" parent="." instance=ExtResource("4_xmg1w")]
+position = Vector2(29, 42)
 _move_type = 2
 _spawn_type = 2
 _stops_type = 1

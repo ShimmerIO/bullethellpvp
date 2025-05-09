@@ -8,8 +8,8 @@ signal grazed
 
 #velocidade do player
 @export_category("Opções nave")
-#700 é 425 * 5/3, 425 é o valor que o nando achou comfy em 1152x648 
-@export var SPEED = 700.0
+#235 é 425 * 5/9, 425 é o valor que o nando achou comfy em 1152x648 
+@export var SPEED = 235.0
 @export var acc:float
 @export var acc_max:float
 var isSlow: bool
@@ -34,8 +34,13 @@ var isInvulnerable:bool
 
 var isSleep:bool
 
+const LEFT_BORDER = 13
+const RIGHT_BORDER = 27
+const UP_BORDER = 20
+const DOWN_BORDER = 60
+
 func _ready() -> void:
-	if global_position.x > 960:
+	if global_position.x > get_viewport_rect().size.x/2:
 		playerSide = 1
 	#pega o tamanho da tela, e faz magia nela, again, placeholder e hack por enquanto
 	screen_size = get_viewport_rect().size
@@ -76,7 +81,7 @@ func _process(delta: float) -> void:
 		position += velocity * delta * direction
 		
 		#mantém o personagem na tela, CRITICAL PLACEHOLDER! ISSO ESTÁ AQUI ENQUANTO NÃO TEMOS OS SPRITES FINAIS!
-		position = position.clamp(Vector2.ZERO + Vector2(68 + 1004*playerSide, 92) , screen_size - (Vector2(68 + 40 - 1004 * playerSide,212)))
+		position = position.clamp(Vector2.ZERO + Vector2(23 + (1 + RIGHT_BORDER - LEFT_BORDER + screen_size.x)*playerSide, 20 + 10) , screen_size - (Vector2(RIGHT_BORDER + 9 - (1+ RIGHT_BORDER -LEFT_BORDER + screen_size.x) * playerSide,71)))
 
 		
 	if not direction: 

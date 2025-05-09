@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://c6bfudofjty1o"]
 
-[ext_resource type="Script" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
+[ext_resource type="Script" uid="uid://buq6h4mbsgnhd" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
 [ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://cenas_prototipo/navezinha.tscn" id="1_q2465"]
-[ext_resource type="Script" path="res://scripts_prototipo/GameDirector.gd" id="3_akmlt"]
-[ext_resource type="Script" path="res://scripts_prototipo/control_director.gd" id="4_6byac"]
+[ext_resource type="Script" uid="uid://bybjrqlyvsku5" path="res://scripts_prototipo/GameDirector.gd" id="3_akmlt"]
+[ext_resource type="Script" uid="uid://4q84sqp4nv10" path="res://scripts_prototipo/control_director.gd" id="4_6byac"]
 [ext_resource type="PackedScene" uid="uid://bref7184bxr87" path="res://cenas_prototipo/HP_Bar.tscn" id="5_apg6a"]
-[ext_resource type="Script" path="res://scripts_prototipo/player_director.gd" id="5_tgs65"]
+[ext_resource type="Script" uid="uid://7a0nr7afkhgj" path="res://scripts_prototipo/player_director.gd" id="5_tgs65"]
 [ext_resource type="Texture2D" uid="uid://c1h4cf7xrc7cw" path="res://sprites_prototipo/UI_teste_outra-export.png" id="7_kcroq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxtm3"]
@@ -14,14 +14,14 @@ size = Vector2(13, 1096)
 [node name="Cena_Teste" type="Node2D"]
 
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(460, 540)
+position = Vector2(151, 180)
 
 [node name="Navezinha2" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(1500, 540)
-playerSide = 1
+position = Vector2(494, 180)
 
 [node name="BulletFilter" type="Area2D" parent="."]
-position = Vector2(960, 0)
+position = Vector2(320, 0)
+scale = Vector2(0.3, 0.3)
 disable_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter"]
@@ -30,12 +30,12 @@ scale = Vector2(1e-05, 1)
 shape = SubResource("RectangleShape2D_xxtm3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="BulletFilter"]
-position = Vector2(960, 538)
+position = Vector2(1065, 538)
 scale = Vector2(1e-05, 1)
 shape = SubResource("RectangleShape2D_xxtm3")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="BulletFilter"]
-position = Vector2(-960, 0)
+position = Vector2(-1060, 560)
 scale = Vector2(1e-05, 1)
 shape = SubResource("RectangleShape2D_xxtm3")
 
@@ -60,7 +60,7 @@ easyWeight = 100.0
 minPatternCount = 2
 maxPatternCount = 5
 minTime = 4.0
-maxTime = 6.0
+maxTime = 4.0
 easyCount = 6
 
 [node name="ControlDirector" type="Node" parent="." groups=["ControlDirector"]]
@@ -70,27 +70,27 @@ script = ExtResource("4_6byac")
 script = ExtResource("5_tgs65")
 
 [node name="HpBar" parent="." instance=ExtResource("5_apg6a")]
-offset_left = 36.0
-offset_top = 60.0
-offset_right = 36.0
-offset_bottom = 60.0
+offset_left = 13.0
+offset_top = 21.0
+offset_right = 13.0
+offset_bottom = 21.0
 
 [node name="HpBar2" parent="." instance=ExtResource("5_apg6a")]
 layout_direction = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 1884.0
-offset_top = 60.0
-offset_right = 1884.0
-offset_bottom = 60.0
+offset_left = 628.0
+offset_top = 21.0
+offset_right = 628.0
+offset_bottom = 21.0
 grow_horizontal = 0
 scale = Vector2(-1, 1)
 playerSide = 1
 
 [node name="UiTesteOutra-export" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(960, 540)
+position = Vector2(320, 180)
 texture = ExtResource("7_kcroq")
 
 [connection signal="grazed" from="Navezinha2" to="GameDirector" method="_on_player_grazed"]

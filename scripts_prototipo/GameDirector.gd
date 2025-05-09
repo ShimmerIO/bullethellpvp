@@ -63,6 +63,9 @@ var currentRandomWave:Array
 #dá halt no game-director inteiro se for verdadeiro
 var stop:bool
 
+const RIGHT_BORDER = 27
+const LEFT_BORDER = 13
+
 func _ready() -> void:
 	#lê a primeira wave na variável CurrentWave
 	currentWave = WaveList.get_wave(1,dificuldade.FÁCIL)
@@ -88,7 +91,7 @@ func make_natural_pattern(index):
 	var player1Pattern = ActivePattern.instantiate()
 
 	#move o pattern do player1 por 1004, pra ir pro lado dele da tela
-	player1Pattern.position.x += 1004
+	player1Pattern.position.x += RIGHT_BORDER - LEFT_BORDER + 320
 	
 	#isso insere eles na cena
 	add_child(player0Pattern)
@@ -217,5 +220,5 @@ func make_attack(attackIndex:int, attackFolder:int, sendingPlayer:int):
 	var attackedPlayer:int = 1 - sendingPlayer
 	
 	var attackInstance = attackingPattern.instantiate()
-	attackInstance.global_position.x += 1004 * attackedPlayer
+	attackInstance.global_position.x += (RIGHT_BORDER - LEFT_BORDER + 320) * attackedPlayer
 	add_child(attackInstance)

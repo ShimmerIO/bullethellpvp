@@ -1,47 +1,47 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwjb2n0aby1kd"]
 
-[ext_resource type="Texture2D" uid="uid://c1h4cf7xrc7cw" path="res://sprites_prototipo/UI_teste_outra-export.png" id="1_y2a5u"]
+[ext_resource type="Texture2D" uid="uid://c2q8b11dt7lau" path="res://sprites_prototipo/UI_teste_metade.png" id="1_rddj4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdb4p"]
 size = Vector2(13, 1096)
 
 [node name="CentroCena" type="Marker2D"]
-position = Vector2(456, 480)
 
 [node name="StaticBody2D" type="Area2D" parent="."]
-position = Vector2(504, -480)
+position = Vector2(-154.5, 0)
+scale = Vector2(0.34, 0.34)
 disable_mode = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 538)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D2" type="Area2D" parent="."]
-position = Vector2(-456, -480)
+position = Vector2(165.5, 0)
+scale = Vector2(0.34, 0.34)
 disable_mode = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(0, 538)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D3" type="Area2D" parent="."]
-position = Vector2(504, -480)
+position = Vector2(5.5, 200)
 rotation = 1.5708
+scale = Vector2(0.34, 0.34)
 disable_mode = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(0, 538)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D4" type="Area2D" parent="."]
-position = Vector2(-456, 600)
+position = Vector2(-174.5, -160)
 rotation = -1.5708
+scale = Vector2(0.34, 0.34)
 disable_mode = 1
 metadata/_edit_group_ = true
 
@@ -51,5 +51,5 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="UiTesteOutra-export" type="Sprite2D" parent="."]
-position = Vector2(504, 60)
-texture = ExtResource("1_y2a5u")
+position = Vector2(5.5, 20)
+texture = ExtResource("1_rddj4")
