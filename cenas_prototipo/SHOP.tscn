@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://j2d4gqdw0qtu"]
+
+[ext_resource type="Texture2D" uid="uid://dfrewy4lgf8pn" path="res://sprites_prototipo/ShopDivision.png" id="1_3motf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3motf"]
+size = Vector2(13, 1096)
+
+[node name="SHOP" type="Node2D"]
+
+[node name="Ataque1" type="Node2D" parent="."]
+position = Vector2(-68, -68)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ataque2" type="Node2D" parent="."]
+position = Vector2(68, -68)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ataque3" type="Node2D" parent="."]
+position = Vector2(-68, 68)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ataque4" type="Node2D" parent="."]
+position = Vector2(68, 68)
+scale = Vector2(0.5, 0.5)
+
+[node name="ShopDivision" type="Sprite2D" parent="."]
+texture = ExtResource("1_3motf")
+
+[node name="BulletFilter" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="Area2D" parent="BulletFilter"]
+position = Vector2(-137, 0)
+scale = Vector2(0.34, 0.34)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter/StaticBody2D"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_3motf")
+
+[node name="StaticBody2D3" type="Area2D" parent="BulletFilter"]
+position = Vector2(137, 0)
+scale = Vector2(0.34, 0.34)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter/StaticBody2D3"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_3motf")
+
+[node name="StaticBody2D2" type="Area2D" parent="BulletFilter"]
+scale = Vector2(0.34, 0.34)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter/StaticBody2D2"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_3motf")
+
+[node name="StaticBody2D4" type="Area2D" parent="BulletFilter"]
+position = Vector2(0, 137)
+rotation = 1.5708
+scale = Vector2(0.34, 0.34)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter/StaticBody2D4"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_3motf")
+
+[node name="StaticBody2D5" type="Area2D" parent="BulletFilter"]
+rotation = 1.5708
+scale = Vector2(0.34, 0.34)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter/StaticBody2D5"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_3motf")
+
+[node name="StaticBody2D6" type="Area2D" parent="BulletFilter"]
+position = Vector2(0, -137)
+rotation = 1.5708
+scale = Vector2(0.34, 0.34)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletFilter/StaticBody2D6"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_3motf")

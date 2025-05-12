@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bma4g6tdhhfug"]
+
+[ext_resource type="Script" uid="uid://dvyye6t6muo7s" path="res://scripts_prototipo/base_padrões.gd" id="1_hf1y0"]
+[ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="2_htoon"]
+[ext_resource type="Script" uid="uid://dbwckcg5q2fff" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_4g85p"]
+[ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_xll5s"]
+
+[node name="Base_Padrões" type="Node2D"]
+script = ExtResource("1_hf1y0")
+metadata/_edit_vertical_guides_ = [959.0]
+
+[node name="CentroCena" parent="." instance=ExtResource("2_htoon")]
+script = ExtResource("3_4g85p")
+
+[node name="Spawner_prototipo" parent="." instance=ExtResource("4_xll5s")]
+position = Vector2(0, 70)
+rotation = 1.5708
+_move_type = 1
+_spawn_type = 1
+rotationSpeed = 60
+arms = 16
+spreadCount = 4
+spreadAngle = 25.0
+timeToExpire = 10.0
+firingRate = 2.0
+bullet_life = 4.0
+bullet_SPEED = 100.0

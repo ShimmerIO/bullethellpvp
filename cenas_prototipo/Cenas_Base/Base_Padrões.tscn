@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://dbwckcg5q2fff" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_8go6d"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(154.5, 160)
 script = ExtResource("1_hfq75")
 metadata/_edit_vertical_guides_ = [959.0]
 

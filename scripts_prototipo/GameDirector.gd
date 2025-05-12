@@ -1,6 +1,8 @@
 extends Node
 
 signal start_game
+signal start_shop
+signal no_bullets
 
 #chama a lista de patterns, usado pra saber o que atirar
 var PatternList = preload("res://scripts_prototipo/pattern_list.gd")
@@ -11,8 +13,10 @@ var AttackList = preload("res://scripts_prototipo/attack_list.gd")
 #chama a lista de waves, usado pra saber quais patterns fazer
 var WaveList = preload("res://scripts_prototipo/wave_list.gd")
 
+var blankScene = preload("res://cenas_prototipo/blank.tscn")
 #Chama o playerDirector pra saber informação dos players
 @onready var playerDirector = get_tree().get_first_node_in_group("PlayerDirector")
+@onready var shopDirector = get_tree().get_first_node_in_group("ShopDirector")
 
 #enum de dificuldade, não sei o que tu quer
 enum dificuldade {FÁCIL, MÉDIO, DIFÍCIL}
@@ -61,21 +65,39 @@ var hasStarted: bool = false
 var currentRandomWave:Array
 
 #dá halt no game-director inteiro se for verdadeiro
-var stop:bool
+var isStop:bool
 
+const SCREEN_CENTER: Vector2 = Vector2(154.5,160)
 const RIGHT_BORDER = 27
 const LEFT_BORDER = 13
 
 func _ready() -> void:
+	playerDirector.connect("send_attack", make_attack)
+	shopDirector.connect("end_shop", start_dodge_segment)
+	playerDirector.connect("send_blank",use_blank)
+	shopDirector.connect("blank_screen", use_blank)
 	#lê a primeira wave na variável CurrentWave
 	currentWave = WaveList.get_wave(1,dificuldade.FÁCIL)
 
 func _process(_delta: float) -> void:
-	#inicia o jogo, NOTE isso é pra teste
-	if Input.is_action_just_pressed("Start") and not hasStarted:
-		next_wave()
+	
+	if (get_tree().get_node_count_in_group("Bullets") + get_tree().get_node_count_in_group("Blank")) == 0:
+		no_bullets.emit()
+		
+	#inicia o jogo, NOTE isso é pra teste 
+	if not Input.is_action_just_pressed("Start"): 
+		return
+	
+	if not hasStarted:
+		start_dodge_segment()
 		start_game.emit()
 		hasStarted = true
+	else: 
+		start_shop.emit()
+	
+
+func start_dodge_segment():
+	next_wave()
 
 #Função usada pra fazer os padrões naturais em si
 func make_natural_pattern(index):
@@ -90,7 +112,10 @@ func make_natural_pattern(index):
 	var player0Pattern = ActivePattern.instantiate()
 	var player1Pattern = ActivePattern.instantiate()
 
-	#move o pattern do player1 por 1004, pra ir pro lado dele da tela
+	player0Pattern.position = SCREEN_CENTER
+	player1Pattern.position = SCREEN_CENTER
+	
+	#move o pattern do player1 pra ir pro lado dele da tela
 	player1Pattern.position.x += RIGHT_BORDER - LEFT_BORDER + 320
 	
 	#isso insere eles na cena
@@ -113,8 +138,8 @@ func get_natural_pattern(index):
 
 #chama o próximo pattern, literalmente o nome
 func next_pattern(index):
-	#se mandou o stop, ele para 
-	if stop:
+	#se mandou o isStop, ele para 
+	if isStop:
 		return
 	
 	#verifica se chegou no fim da wave, se sim, ele para de ler o resto e vai pra próxima wave
@@ -141,6 +166,18 @@ func next_wave():
 		currentRandomWave = generate_random_wave()
 		send_wave()
 		return
+	
+	
+	if waveCount%5 == 0 and not isStop :
+		use_blank(1,0)
+		use_blank(0,0)
+		isStop = true
+		get_tree().call_group("Spawners","remove_after_blank")
+		await no_bullets
+		start_shop.emit()
+		return
+	
+	isStop = false
 	
 	# aumenta a wave
 	waveIndex += 1
@@ -206,19 +243,43 @@ func generate_random_pattern() -> Array:
 		print("opa amigo, o float caiu fora do range, por favor faz os pesos somarem a 100, amigo")
 		chosenDifficulty = 2
 		chosenIndex = 420
-		stop = true
+		isStop = true
 	
 	#retorna o pattern
 	return [[chosenIndex,chosenDifficulty],chosenTime]
 
-func make_attack(attackIndex:int, attackFolder:int, sendingPlayer:int):
+func make_attack(attackingPattern, sendingPlayer:int):
 	
 	#carrega o pattern de ataque na variável, baseado no ataque que ele recebeu
 	#suponho que o player em si vai chamar essa função a partir dele mesmo
 	#NOTE adicionar aqui o custo de GRAZE, pra fazer isso ser server-side
-	var attackingPattern = AttackList.get_attack(attackIndex,attackFolder)
 	var attackedPlayer:int = 1 - sendingPlayer
 	
-	var attackInstance = attackingPattern.instantiate()
+	
+	var attackInstance = attackingPattern
+	attackInstance.global_position = SCREEN_CENTER
 	attackInstance.global_position.x += (RIGHT_BORDER - LEFT_BORDER + 320) * attackedPlayer
 	add_child(attackInstance)
+
+func use_blank(playerSidetoBlank:int, blankType:int):
+	var blankMaxRadius:int
+	var center:Vector2
+	var parent
+	
+	match blankType:
+		0: 
+			blankMaxRadius = 640
+			center = SCREEN_CENTER + Vector2((RIGHT_BORDER - LEFT_BORDER + 320) * playerSidetoBlank,0)
+			parent = self
+		1: 
+			blankMaxRadius = 200
+			center = playerDirector.get_player(playerSidetoBlank).global_position
+			parent = get_tree().get_nodes_in_group("ClipMask")[playerSidetoBlank]
+			print
+	
+	var blank = blankScene.instantiate()
+	blank.global_position = center
+	blank.maxRadius = blankMaxRadius
+	blank.playerSide = playerSidetoBlank
+	parent.add_child(blank)
+	

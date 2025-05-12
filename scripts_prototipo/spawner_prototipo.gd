@@ -1,5 +1,6 @@
 extends Node2D
 
+signal side_set
 #carrega o prefab da bala na memória, necessário pra poder instanciar balas
 var bullet_scene = preload("res://cenas_prototipo/bala_prototipo.tscn")
 
@@ -77,20 +78,28 @@ var i = 0
 var timer: float
 var myPatternFamily: String
 var isFuckYou: bool
+var ceasedFire:bool
 
 const RIGHT_BORDER = 27
 const LEFT_BORDER = 13
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready() -> void: 
 
+	if global_scale < Vector2(0.9,0.9):
+		if _move_type == movement_type.TRACK:
+			_move_type = movement_type.STILL
+			isLooks = true
+			chosenPoint = get_parent().global_position
+	
 	myPatternFamily = str("Padrão", get_parent())
-
+	self.add_to_group(myPatternFamily)
 	#acha o game director e coloca ele na variável certa, comenta essa linha fora em caso de teste
+	
 	PlayerDirector = get_tree().get_nodes_in_group("PlayerDirector")[0]
 	
 	#faz os sprites do spawner sumirem
-	$Bala.hide()
+	$Area2D/Bala.hide()
 	$Polygon2D.hide()
 	
 	#se spawnou do lado do player 2, é o player 2 que ele vai atras
@@ -108,7 +117,14 @@ func _ready() -> void:
 		#retorna a var pro fire rate
 		firingRate = storeFireRate
 		isSleeping = false
-		get_tree().call_group(myPatternFamily, "synchronize")
+	
+	$Warning.play()
+	$Warning.show()
+	await get_tree().create_timer(0.5).timeout
+	$Warning.hide()
+	$Warning.stop()
+	
+	get_tree().call_group(myPatternFamily, "synchronize")
 	
 	if(_stops_type == stopping_criteria.TIME):
 		#manda o comando stop_firing depois de firingTime segundos
@@ -120,6 +136,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	
+	if($Warning.is_playing()):
+		return
 	
 	if(isFuckYou):
 		print("oops! you need to KILL YOURSELF, NOW!")
@@ -133,6 +152,7 @@ func _process(delta: float) -> void:
 	if(isPathed):
 		pathToFollow.progress_ratio += followSpeed * delta
 		position = pathToFollow.position
+		$Area2D/Bala.show()
 	
 	#Verifica se o spawner é o tipo que gira ou não, e faz ele girar
 	if(_move_type == movement_type.SPIN):
@@ -178,6 +198,8 @@ func _process(delta: float) -> void:
 func stop_firing():
 	#espera a última bala gerada sumir, e deleta tudo
 	firingRate = 0
+	ceasedFire = true
+	$Area2D/Bala.hide()
 	await get_tree().create_timer(bullet_life).timeout
 	queue_free()
 	get_parent().check_if_expired()
@@ -195,6 +217,7 @@ func fire_bullet():
 	bullet.direction = direction
 	bullet.SPEED = bullet_SPEED
 	bullet.bullet_life = bullet_life
+	bullet.target_player = PlayerSide
 	bullet.add_to_group("Bullets")
 	add_child(bullet)
 
@@ -210,3 +233,14 @@ func synchronize():
 func set_player_side(index:int):
 	PlayerSide = index
 	chosenPoint.x += (RIGHT_BORDER - LEFT_BORDER + get_viewport_rect().size.x/2) * index
+
+func remove_after_blank():
+	stop_firing()
+	
+
+func _on_blank_entered(area: Area2D) -> void:
+	if area.is_in_group("Blank") and ceasedFire:
+		queue_free()
+		get_parent().check_if_expired()
+		$Area2D/Bala.hide()
+	pass # Replace with function body.

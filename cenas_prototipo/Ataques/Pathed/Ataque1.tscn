@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceac83hcqtgsy"]
+
+[ext_resource type="Script" uid="uid://dvyye6t6muo7s" path="res://scripts_prototipo/base_padrões.gd" id="1_hf1y0"]
+[ext_resource type="PackedScene" uid="uid://bwjb2n0aby1kd" path="res://cenas_prototipo/Cenas_Base/centro_cena_padrões.tscn" id="2_htoon"]
+[ext_resource type="Script" uid="uid://dbwckcg5q2fff" path="res://scripts_prototipo/centro_cena_padrões.gd" id="3_4g85p"]
+[ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_xs58v"]
+
+[sub_resource type="Curve2D" id="Curve2D_xs58v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 70, 70, 0, 0, 0, 0, -70, 70, 0, 0, 0, 0, -70, -70, 0, 0, 0, 0, 70, -70, 0, 0, 0, 0, 70, 70)
+}
+point_count = 5
+
+[node name="Base_Padrões" type="Node2D"]
+script = ExtResource("1_hf1y0")
+metadata/_edit_vertical_guides_ = [959.0]
+
+[node name="CentroCena" parent="." instance=ExtResource("2_htoon")]
+script = ExtResource("3_4g85p")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_xs58v")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(70, 70)
+rotation = 3.14159
+
+[node name="Spawner_prototipo" parent="." node_paths=PackedStringArray("pathToFollow") instance=ExtResource("4_xs58v")]
+position = Vector2(0, 31)
+_spawn_type = 1
+isPathed = true
+pathToFollow = NodePath("../Path2D/PathFollow2D")
+followSpeed = 0.1
+isLooks = true
+arms = 12
+skewArms = 0.01
+timeToExpire = 10.0
+firingRate = 5.0
+bullet_life = 4.0
+bullet_SPEED = 120.0

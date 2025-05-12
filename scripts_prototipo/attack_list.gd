@@ -1,4 +1,4 @@
-static func get_attack(index: int, folder: int):
+static func get_attack(folder: int,index: int):
 	var pasta: String
 	match folder:
 		0: pasta = "Central"

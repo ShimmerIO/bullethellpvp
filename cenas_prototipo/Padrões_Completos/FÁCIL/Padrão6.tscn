@@ -6,13 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_xl36x"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(456, 480)
 script = ExtResource("1_rdd2c")
 "índice_padrão" = 1
+timeToExpire = 8
 metadata/_edit_vertical_guides_ = [959.0]
 
 [node name="CentroCena" parent="." instance=ExtResource("2_ocwlr")]
-position = Vector2(0, 0)
 script = ExtResource("3_ro3jk")
 
 [node name="Spawner_prototipo" parent="." instance=ExtResource("4_xl36x")]

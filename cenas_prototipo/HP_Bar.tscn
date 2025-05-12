@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cw8rnq8aux5u1" path="res://sprites_prototipo/empty_shield.png" id="2_dkb46"]
 
 [node name="HpBar" type="Control"]
+z_index = 7
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7ltjt")

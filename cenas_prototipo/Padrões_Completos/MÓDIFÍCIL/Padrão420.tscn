@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_ir1wx"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(154.5, 160)
 script = ExtResource("1_di24n")
 dificuldade = 2
 "índice_padrão" = 420

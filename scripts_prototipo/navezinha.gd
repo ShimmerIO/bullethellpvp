@@ -6,6 +6,12 @@ signal hit
 #determina a existência do sinal de graze
 signal grazed
 
+
+signal request_attack
+signal request_blank
+signal request_special
+
+@onready var playerDirector = get_tree().get_first_node_in_group("PlayerDirector")
 #velocidade do player
 @export_category("Opções nave")
 #235 é 425 * 5/9, 425 é o valor que o nando achou comfy em 1152x648 
@@ -22,7 +28,6 @@ var screen_size:Vector2
 @export var playerSide:int
 
 var isGrazing:bool
-var grazeMeter:int
 var timer: float
 var timeToIncreaseGraze:float = 1
 
@@ -34,12 +39,20 @@ var isInvulnerable:bool
 
 var isSleep:bool
 
+var attack1:Array
+var attack2:Array
+var attack3:Array
+var special_skill:int
+
+
 const LEFT_BORDER = 13
 const RIGHT_BORDER = 27
 const UP_BORDER = 20
 const DOWN_BORDER = 60
 
 func _ready() -> void:
+	
+	playerDirector.connect("makeInvulnerable",make_invulnerable)
 	if global_position.x > get_viewport_rect().size.x/2:
 		playerSide = 1
 	#pega o tamanho da tela, e faz magia nela, again, placeholder e hack por enquanto
@@ -53,7 +66,9 @@ func _process(delta: float) -> void:
 	if isInvulnerable:
 		timer+= delta
 		$NaveTeste.self_modulate = Color(1,1,1,0.5)
+		$CollisionShape2D.set_deferred("disabled",true)
 		if timer > invulnerabilityTimer:
+			$CollisionShape2D.set_deferred("disabled",false)
 			isInvulnerable = false
 			timer = 0
 			$NaveTeste.self_modulate = Color(1,1,1,1)
@@ -64,12 +79,28 @@ func _process(delta: float) -> void:
 		$Graze/GrazeShape.hide()
 	
 	var direction 
+	#isso dá handle no input, não pedir input fora disso
 	if myID != null:
 			direction = MultiplayerInput.get_vector(myID,"custom_left", "custom_right","custom_up","custom_down")
 			if MultiplayerInput.is_action_pressed(myID,"custom_slow"):
 				isSlow = true
 			else:
 				isSlow = false
+				
+			if MultiplayerInput.is_action_just_pressed(myID, "custom_attack_1"):
+				request_attack.emit(playerSide, 0)
+			
+			if MultiplayerInput.is_action_just_pressed(myID, "custom_attack_2"):
+				request_attack.emit(playerSide, 1)
+			
+			if MultiplayerInput.is_action_just_pressed(myID, "custom_attack_3"):
+				request_attack.emit(playerSide, 2)
+			
+			if MultiplayerInput.is_action_just_pressed(myID,"custom_attack_4") and isSlow:
+				request_blank.emit(playerSide)
+			
+			elif MultiplayerInput.is_action_just_pressed(myID, "custom_attack_4"):
+				request_special.emit(playerSide, special_skill)
 		
 	#move o personagem quando tu tá apertando alguma direção
 	if direction:
@@ -90,6 +121,9 @@ func _process(delta: float) -> void:
 func sleep():
 	isSleep = true
 	self.hide()
+	self.set_deferred("monitorable", false)
+	self.set_deferred("monitoring", false)
+	$Graze.set_deferred("monitoring",false)
 
 func _on_area_entered(area: Area2D) -> void:
 	#se colidir com uma bala, é pra emitir o sinal hit
@@ -103,8 +137,14 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_hit(player) -> void:
 	isInvulnerable = true
 
+func make_invulnerable():
+	isInvulnerable = true
+	invulnerabilityTimer = 5
+	await get_tree().create_timer(5).timeout
+	invulnerabilityTimer = 1
+
 func _on_graze_area_entered(area: Area2D) -> void:
-	if(area.is_in_group("Bullets")):
+	if(area.is_in_group("Bullets") and not isInvulnerable ):
 		isGrazing = true
 		grazed.emit(isGrazing, playerSide)
 

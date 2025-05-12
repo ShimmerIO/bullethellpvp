@@ -6,17 +6,34 @@
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_7tnfe"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(456, 480)
 script = ExtResource("1_hn1a7")
 "índice_padrão" = 2
-timeToExpire = 10
+timeToExpire = 2
 metadata/_edit_vertical_guides_ = [959.0]
 
 [node name="CentroCena" parent="." instance=ExtResource("2_ojosv")]
 script = ExtResource("3_upd8s")
 
 [node name="Spawner_prototipo" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, -406)
+position = Vector2(-140, 90)
+timeToExpire = 20.0
+firingRate = 1.0
+bullet_life = 6.0
+bullet_SPEED = 200.0
+isSleeping = true
+sleepingTime = 7.0
+
+[node name="Spawner_prototipo9" parent="." instance=ExtResource("4_7tnfe")]
+position = Vector2(-140, 120)
+timeToExpire = 20.0
+firingRate = 1.0
+bullet_life = 6.0
+bullet_SPEED = 200.0
+isSleeping = true
+sleepingTime = 8.0
+
+[node name="Spawner_prototipo8" parent="." instance=ExtResource("4_7tnfe")]
+position = Vector2(-140, -120)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
@@ -24,7 +41,7 @@ bullet_SPEED = 200.0
 isSleeping = true
 
 [node name="Spawner_prototipo2" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, -271)
+position = Vector2(-140, -90)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
@@ -33,7 +50,7 @@ isSleeping = true
 sleepingTime = 1.0
 
 [node name="Spawner_prototipo3" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, -136)
+position = Vector2(-140, -60)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
@@ -42,7 +59,7 @@ isSleeping = true
 sleepingTime = 2.0
 
 [node name="Spawner_prototipo4" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, -1)
+position = Vector2(-140, -30)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
@@ -51,7 +68,7 @@ isSleeping = true
 sleepingTime = 3.0
 
 [node name="Spawner_prototipo5" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, 134)
+position = Vector2(-140, 0)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
@@ -60,7 +77,7 @@ isSleeping = true
 sleepingTime = 4.0
 
 [node name="Spawner_prototipo6" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, 269)
+position = Vector2(-140, 30)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
@@ -69,7 +86,7 @@ isSleeping = true
 sleepingTime = 5.0
 
 [node name="Spawner_prototipo7" parent="." instance=ExtResource("4_7tnfe")]
-position = Vector2(-404, 404)
+position = Vector2(-140, 60)
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0

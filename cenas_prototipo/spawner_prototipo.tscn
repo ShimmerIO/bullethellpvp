@@ -1,16 +1,79 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkh8d7wj6tw4x"]
+[gd_scene load_steps=16 format=3 uid="uid://bkh8d7wj6tw4x"]
 
 [ext_resource type="Script" uid="uid://cu4ap371v7cf7" path="res://scripts_prototipo/spawner_prototipo.gd" id="1_ewwoa"]
 [ext_resource type="Texture2D" uid="uid://b4b7aaytogat7" path="res://sprites_prototipo/bala.png" id="2_j8f1n"]
+[ext_resource type="Texture2D" uid="uid://bo16ad3i8l7da" path="res://sprites_prototipo/warning_itch/WarningSign01.png" id="3_pkhso"]
+[ext_resource type="Texture2D" uid="uid://cdh7ffbo8f0mn" path="res://sprites_prototipo/warning_itch/WarningSign02.png" id="4_qs0vv"]
+[ext_resource type="Texture2D" uid="uid://8gtdw6uipj1p" path="res://sprites_prototipo/warning_itch/WarningSign03.png" id="5_12jln"]
+[ext_resource type="Texture2D" uid="uid://cwgvl3j5c7mt2" path="res://sprites_prototipo/warning_itch/WarningSign04.png" id="6_er2t0"]
+[ext_resource type="Texture2D" uid="uid://2aqongyubn4m" path="res://sprites_prototipo/warning_itch/WarningSign05.png" id="7_2vmli"]
+[ext_resource type="Texture2D" uid="uid://sunp2xi3f38r" path="res://sprites_prototipo/warning_itch/WarningSign06.png" id="8_xke20"]
+[ext_resource type="Texture2D" uid="uid://eotyxs8ts6t0" path="res://sprites_prototipo/warning_itch/WarningSign07.png" id="9_dc2ci"]
+[ext_resource type="Texture2D" uid="uid://drg14habb8v1d" path="res://sprites_prototipo/warning_itch/WarningSign08.png" id="10_0xtn8"]
+[ext_resource type="Texture2D" uid="uid://606760txqbqw" path="res://sprites_prototipo/warning_itch/WarningSign09.png" id="11_vl35m"]
+[ext_resource type="Script" uid="uid://ceq64r0ahjkei" path="res://scripts_prototipo/spawner_follow.gd" id="12_12jln"]
+[ext_resource type="Script" uid="uid://dqcwqnrt6do0d" path="res://scripts_prototipo/warning.gd" id="12_qs0vv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7bm8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_pkhso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qs0vv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_12jln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_er2t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2vmli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xke20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dc2ci")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0xtn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vl35m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qs0vv"]
+radius = 81.32
 
 [node name="Spawner_prototipo" type="Node2D" groups=["Spawners"]]
 script = ExtResource("1_ewwoa")
 
-[node name="Bala" type="Sprite2D" parent="."]
+[node name="Warning" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_7bm8x")
+script = ExtResource("12_qs0vv")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Bullets"]]
 scale = Vector2(0.03, 0.033)
+script = ExtResource("12_12jln")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_qs0vv")
+
+[node name="Bala" type="Sprite2D" parent="Area2D"]
 texture = ExtResource("2_j8f1n")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(-5.72205e-06, -1.49012e-08)
 scale = Vector2(1, 1.57)
 polygon = PackedVector2Array(0, 0, 35, 0, 35, -3, 42.3846, 2.23517e-08, 35, 3, 35, 0)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_blank_entered"]

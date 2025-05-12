@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwjb2n0aby1kd"]
 
-[ext_resource type="Texture2D" uid="uid://c2q8b11dt7lau" path="res://sprites_prototipo/UI_teste_metade.png" id="1_rddj4"]
+[ext_resource type="Texture2D" uid="uid://sl8x7ygeway0" path="res://sprites_prototipo/Quadrado 280px.png" id="1_rddj4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdb4p"]
 size = Vector2(13, 1096)
@@ -8,6 +8,7 @@ size = Vector2(13, 1096)
 [node name="CentroCena" type="Marker2D"]
 
 [node name="StaticBody2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(-154.5, 0)
 scale = Vector2(0.34, 0.34)
 disable_mode = 1
@@ -18,6 +19,7 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D2" type="Area2D" parent="."]
+visible = false
 position = Vector2(165.5, 0)
 scale = Vector2(0.34, 0.34)
 disable_mode = 1
@@ -28,7 +30,8 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D3" type="Area2D" parent="."]
-position = Vector2(5.5, 200)
+visible = false
+position = Vector2(-6, 148)
 rotation = 1.5708
 scale = Vector2(0.34, 0.34)
 disable_mode = 1
@@ -39,7 +42,8 @@ scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
 [node name="StaticBody2D4" type="Area2D" parent="."]
-position = Vector2(-174.5, -160)
+visible = false
+position = Vector2(-179, -153)
 rotation = -1.5708
 scale = Vector2(0.34, 0.34)
 disable_mode = 1
@@ -50,6 +54,5 @@ position = Vector2(0, 540)
 scale = Vector2(0.01, 1)
 shape = SubResource("RectangleShape2D_wdb4p")
 
-[node name="UiTesteOutra-export" type="Sprite2D" parent="."]
-position = Vector2(5.5, 20)
+[node name="Quadrado280Px" type="Sprite2D" parent="."]
 texture = ExtResource("1_rddj4")

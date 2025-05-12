@@ -5,6 +5,7 @@ class_name Padrão
 @export_enum("FÁCIL","MÉDIO","DIFÍCIL") var dificuldade: int 
 @export var índice_padrão:int
 @export var timeToExpire:int
+@export var attackCost:int
 
 func _ready() -> void:
 	if timeToExpire != 0:
@@ -18,6 +19,8 @@ func _get(property):
 		return índice_padrão
 	if property == "difficulty":
 		return dificuldade
+	if property == "attack_cost":
+		return attackCost
 
 func _get_property_list():
 	var properties = []
@@ -25,7 +28,8 @@ func _get_property_list():
 		"name":name,
 		"type":TYPE_INT,
 		"index":índice_padrão,
-		"difficulty":dificuldade
+		"difficulty":dificuldade,
+		"attackCost":attackCost
 	})
 	return properties
 

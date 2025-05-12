@@ -6,36 +6,25 @@
 [ext_resource type="PackedScene" uid="uid://bkh8d7wj6tw4x" path="res://cenas_prototipo/spawner_prototipo.tscn" id="4_30rlk"]
 
 [node name="Base_Padrões" type="Node2D"]
-position = Vector2(455, 480)
 script = ExtResource("1_retbh")
 "índice_padrão" = 3
-timeToExpire = 10
+timeToExpire = 2
 metadata/_edit_vertical_guides_ = [959.0]
 
 [node name="CentroCena" parent="." instance=ExtResource("2_lcw5e")]
 script = ExtResource("3_ybi8v")
 
 [node name="Spawner_prototipo2" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(385, -416)
+position = Vector2(120, -140)
 rotation = 1.5708
 timeToExpire = 20.0
 firingRate = 1.0
 bullet_life = 6.0
 bullet_SPEED = 200.0
 isSleeping = true
-
-[node name="Spawner_prototipo3" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(257, -416)
-rotation = 1.5708
-timeToExpire = 20.0
-firingRate = 1.0
-bullet_life = 6.0
-bullet_SPEED = 200.0
-isSleeping = true
-sleepingTime = 2.0
 
 [node name="Spawner_prototipo4" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(129, -416)
+position = Vector2(40, -140)
 rotation = 1.5708
 timeToExpire = 20.0
 firingRate = 1.0
@@ -44,8 +33,18 @@ bullet_SPEED = 200.0
 isSleeping = true
 sleepingTime = 3.0
 
+[node name="Spawner_prototipo3" parent="." instance=ExtResource("4_30rlk")]
+position = Vector2(80, -140)
+rotation = 1.5708
+timeToExpire = 20.0
+firingRate = 1.0
+bullet_life = 6.0
+bullet_SPEED = 200.0
+isSleeping = true
+sleepingTime = 2.0
+
 [node name="Spawner_prototipo5" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(1, -416)
+position = Vector2(1, -140)
 rotation = 1.5708
 timeToExpire = 20.0
 firingRate = 1.0
@@ -55,7 +54,7 @@ isSleeping = true
 sleepingTime = 4.0
 
 [node name="Spawner_prototipo6" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(-127, -416)
+position = Vector2(-40, -140)
 rotation = 1.5708
 timeToExpire = 20.0
 firingRate = 1.0
@@ -65,9 +64,9 @@ isSleeping = true
 sleepingTime = 5.0
 
 [node name="Spawner_prototipo7" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(-255, -416)
+position = Vector2(-80, -140)
 rotation = 1.5708
-timeToExpire = 20.0
+timeToExpire = 10.0
 firingRate = 1.0
 bullet_life = 6.0
 bullet_SPEED = 200.0
@@ -75,9 +74,9 @@ isSleeping = true
 sleepingTime = 6.0
 
 [node name="Spawner_prototipo8" parent="." instance=ExtResource("4_30rlk")]
-position = Vector2(-383, -416)
+position = Vector2(-120, -140)
 rotation = 1.5708
-timeToExpire = 20.0
+timeToExpire = 10.0
 firingRate = 1.0
 bullet_life = 6.0
 bullet_SPEED = 200.0

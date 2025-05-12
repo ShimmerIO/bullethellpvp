@@ -1,23 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6bfudofjty1o"]
+[gd_scene load_steps=13 format=3 uid="uid://c6bfudofjty1o"]
 
 [ext_resource type="Script" uid="uid://buq6h4mbsgnhd" path="res://scripts_prototipo/cena_teste.gd" id="1_1gkh1"]
 [ext_resource type="PackedScene" uid="uid://b6yp80jcx3bjn" path="res://cenas_prototipo/navezinha.tscn" id="1_q2465"]
 [ext_resource type="Script" uid="uid://bybjrqlyvsku5" path="res://scripts_prototipo/GameDirector.gd" id="3_akmlt"]
+[ext_resource type="Script" uid="uid://hb8cixrjq5x4" path="res://scripts_prototipo/ShopDirector.gd" id="3_sosgw"]
 [ext_resource type="Script" uid="uid://4q84sqp4nv10" path="res://scripts_prototipo/control_director.gd" id="4_6byac"]
+[ext_resource type="PackedScene" uid="uid://bdriapablucx3" path="res://cenas_prototipo/teste.tscn" id="4_fif1o"]
 [ext_resource type="PackedScene" uid="uid://bref7184bxr87" path="res://cenas_prototipo/HP_Bar.tscn" id="5_apg6a"]
+[ext_resource type="Script" uid="uid://dldjtd20pv1fo" path="res://scripts_prototipo/TimerLabel.gd" id="5_nmwxk"]
 [ext_resource type="Script" uid="uid://7a0nr7afkhgj" path="res://scripts_prototipo/player_director.gd" id="5_tgs65"]
-[ext_resource type="Texture2D" uid="uid://c1h4cf7xrc7cw" path="res://sprites_prototipo/UI_teste_outra-export.png" id="7_kcroq"]
+[ext_resource type="Texture2D" uid="uid://c2q8b11dt7lau" path="res://sprites_prototipo/UI_teste_metade.png" id="7_baoml"]
+[ext_resource type="Texture2D" uid="uid://bntgvkhhy20r8" path="res://sprites_prototipo/GrazeMeter.png" id="11_nmwxk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxtm3"]
 size = Vector2(13, 1096)
 
 [node name="Cena_Teste" type="Node2D"]
 
+[node name="PlayArea0" type="Polygon2D" parent="." groups=["ClipMask"]]
+clip_children = 1
+position = Vector2(-1, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(12, 302, 15, 19, 294, 20, 301, 306)
+uv = PackedVector2Array(-240, 17.5, -225, -60.5, -127, -48.5, -141, 30.5)
+
+[node name="PlayArea1" type="Polygon2D" parent="." groups=["ClipMask"]]
+clip_children = 1
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(344, 303, 337, 17, 628, 14, 631, 301)
+uv = PackedVector2Array(-240, 17.5, -225, -60.5, -127, -48.5, -141, 30.5)
+
 [node name="Navezinha" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(151, 180)
+position = Vector2(154.5, 160)
 
 [node name="Navezinha2" parent="." instance=ExtResource("1_q2465")]
-position = Vector2(494, 180)
+position = Vector2(489.5, 160)
 
 [node name="BulletFilter" type="Area2D" parent="."]
 position = Vector2(320, 0)
@@ -53,9 +70,38 @@ shape = SubResource("RectangleShape2D_xxtm3")
 [node name="NoLongerGameDirector" type="Node" parent="."]
 script = ExtResource("1_1gkh1")
 
+[node name="ShopDirector" type="Node" parent="." groups=["ShopDirector"]]
+script = ExtResource("3_sosgw")
+centralCount = 1
+diagonalCount = 1
+spiralCount = 1
+
+[node name="TempoSurvive" type="Timer" parent="ShopDirector"]
+wait_time = 15.0
+one_shot = true
+
+[node name="TempoEscolha" type="Timer" parent="ShopDirector"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Tempo1" parent="ShopDirector" instance=ExtResource("4_fif1o")]
+self_modulate = Color(1, 1, 1, 0.133333)
+offset_left = 12.0
+offset_top = 20.0
+offset_right = 292.0
+offset_bottom = 300.0
+script = ExtResource("5_nmwxk")
+
+[node name="Tempo2" parent="ShopDirector" instance=ExtResource("4_fif1o")]
+self_modulate = Color(1, 1, 1, 0.133333)
+offset_left = 347.0
+offset_top = 20.0
+offset_right = 626.0
+offset_bottom = 303.0
+script = ExtResource("5_nmwxk")
+
 [node name="GameDirector" type="Node" parent="." groups=["GameDirector"]]
 script = ExtResource("3_akmlt")
-isEndless = true
 easyWeight = 100.0
 minPatternCount = 2
 maxPatternCount = 5
@@ -80,18 +126,41 @@ layout_direction = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 628.0
+offset_left = 626.0
 offset_top = 21.0
-offset_right = 628.0
+offset_right = 626.0
 offset_bottom = 21.0
 grow_horizontal = 0
 scale = Vector2(-1, 1)
 playerSide = 1
 
-[node name="UiTesteOutra-export" type="Sprite2D" parent="."]
+[node name="Playerside1" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(320, 180)
-texture = ExtResource("7_kcroq")
+position = Vector2(160, 180)
+texture = ExtResource("7_baoml")
 
-[connection signal="grazed" from="Navezinha2" to="GameDirector" method="_on_player_grazed"]
-[connection signal="hit" from="Navezinha2" to="GameDirector" method="_on_player_hit"]
+[node name="Playerside2" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(480, 180)
+texture = ExtResource("7_baoml")
+flip_h = true
+
+[node name="GrazeVisibility" type="Polygon2D" parent="." groups=["ClipMask"]]
+clip_children = 1
+z_index = 1
+position = Vector2(-266, 0)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(559, 306, 559, 20, 613, 20, 613, 306)
+uv = PackedVector2Array(-240, 17.5, -225, -60.5, -127, -48.5, -141, 30.5)
+
+[node name="GrazeMeter1" type="Sprite2D" parent="GrazeVisibility" groups=["GrazeMeter"]]
+show_behind_parent = true
+clip_children = 2
+position = Vector2(578, 446)
+texture = ExtResource("11_nmwxk")
+
+[node name="GrazeMeter2" type="Sprite2D" parent="GrazeVisibility" groups=["GrazeMeter"]]
+show_behind_parent = true
+clip_children = 2
+position = Vector2(594, 446)
+texture = ExtResource("11_nmwxk")

@@ -28,6 +28,7 @@ polygon = PackedVector2Array(-12.2512, 16.0016, -2.25022, 6.0006, 1.75017, 6.000
 
 [node name="GrazeShape" type="Sprite2D" parent="Graze"]
 self_modulate = Color(1, 1, 1, 0.0901961)
+position = Vector2(1, -1)
 scale = Vector2(2, 2)
 texture = ExtResource("2_dsgh6")
 
